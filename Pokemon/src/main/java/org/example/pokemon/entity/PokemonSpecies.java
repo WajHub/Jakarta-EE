@@ -1,0 +1,31 @@
+package org.example.pokemon.entity;
+
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.UUID;
+
+@Getter
+@Setter
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+public class PokemonSpecies  implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private UUID id;
+    private String name;
+
+    private int increaseHealthPerLevel;
+    private int increaseAttackPerLevel;
+    private int increaseDefensePerLevel;
+
+    private Pokemon evolutionTarget;
+    private Integer levelToEvolve;
+
+    private List<Pokemon> pokemons;
+}
