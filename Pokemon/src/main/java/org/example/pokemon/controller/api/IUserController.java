@@ -11,4 +11,6 @@ public interface IUserController {
     List<UserResponse> getUsers();
 
     UserResponse getUser(UUID uuid);
+
+    byte[] getUserAvatar(UUID uuid);
 }

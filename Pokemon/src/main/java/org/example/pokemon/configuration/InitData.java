@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.service.UserService;
+import org.example.pokemon.utils.AvatarUtility;
 
 import java.util.List;
 import java.util.UUID;
@@ -51,6 +52,7 @@ public class InitData implements ServletContextListener {
                 .password("password_test")
                 .email("test@gmail.com")
                 .roles(List.of(UserRole.USER))
+                .avatar(AvatarUtility.loadFromFileSystem("avatar3.png"))
                 .build();
         List<User>initUsers = List.of(admin, hubert, test, user);
         initUsers.forEach(u -> userService.create(u));

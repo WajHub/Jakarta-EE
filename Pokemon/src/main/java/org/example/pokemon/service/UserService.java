@@ -38,4 +38,10 @@ public class UserService {
                         ))
                 );
     }
+
+    public byte[] getUserAvatar(UUID uuid) {
+        return userRepository.find(uuid)
+                .map(User::getAvatar)
+                .orElseThrow(() -> new NotFoundException("Avatar not found!"));
+    }
 }

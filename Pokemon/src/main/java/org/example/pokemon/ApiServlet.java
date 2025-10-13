@@ -40,6 +40,14 @@ public class ApiServlet extends HttpServlet {
                 response.getWriter().write(jsonb.toJson(userController.getUser(uuid)));
                 return;
             }
+            if (path.matches(Patterns.USER_AVATAR.pattern())) {
+                response.setContentType("image/png");
+                UUID uuid = extractUuid(Patterns.USER_AVATAR, path);
+                byte[] portrait = userController.getUserAvatar(uuid);
+                response.setContentLength(portrait.length);
+                response.getOutputStream().write(portrait);
+                return;
+            }
         }
         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
@@ -53,6 +61,7 @@ public class ApiServlet extends HttpServlet {
 
         public static final Pattern USERS = Pattern.compile("/users/?");
         public static final Pattern USER = Pattern.compile("/users/(%s)".formatted(UUID.pattern()));
+        public static final Pattern USER_AVATAR = Pattern.compile("/users/(%s)/avatar".formatted(UUID.pattern()));
 
     }
 

@@ -9,3 +9,7 @@ GET http://localhost:9080/pokemon/api/users/aaf8b3ad-f935-4e77-a01e-718f338a37ca
 ### GET request to find user - not found
 GET http://localhost:9080/pokemon/api/users/aaf8b3ad-f935-4e77-a01e-718f338a3769
 ###
+
+### GET request to find user
+GET http://localhost:9080/pokemon/api/users/fea12d2a-d65a-49ce-9a3e-d6d5b31e0878/avatar
+###
