@@ -4,7 +4,7 @@ import org.example.pokemon.controller.api.IUserController;
 import org.example.pokemon.dto.response.UserResponse;
 import org.example.pokemon.service.UserService;
 
-import java.util.Arrays;
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +28,16 @@ public class UserController implements IUserController {
 
     @Override
     public byte[] getUserAvatar(UUID uuid) {
-        System.out.println(Arrays.toString(userService.getUserAvatar(uuid)));
         return userService.getUserAvatar(uuid);
+    }
+
+    @Override
+    public void putUserAvatar(UUID uuid, InputStream avatar){
+        userService.putUserAvatar(uuid, avatar);
+    }
+
+    @Override
+    public void deleteAvatar(UUID uuid) {
+        userService.deleteAvatar(uuid);
     }
 }

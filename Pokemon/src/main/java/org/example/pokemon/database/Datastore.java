@@ -37,6 +37,7 @@ public class Datastore {
         return users.stream()
                 .filter(user -> user.getId().equals(id))
                 .findFirst()
+                .map(cloningUtility::clone)
                 .orElse(null);
     }
 }

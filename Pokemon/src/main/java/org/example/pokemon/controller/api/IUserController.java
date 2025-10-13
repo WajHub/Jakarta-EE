@@ -2,8 +2,8 @@ package org.example.pokemon.controller.api;
 
 import org.example.pokemon.dto.response.UserResponse;
 
+import java.io.InputStream;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface IUserController {
@@ -13,4 +13,8 @@ public interface IUserController {
     UserResponse getUser(UUID uuid);
 
     byte[] getUserAvatar(UUID uuid);
+
+    void putUserAvatar(UUID uuid, InputStream avatar);
+
+    void deleteAvatar(UUID uuid);
 }

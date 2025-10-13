@@ -52,7 +52,6 @@ public class InitData implements ServletContextListener {
                 .password("password_test")
                 .email("test@gmail.com")
                 .roles(List.of(UserRole.USER))
-                .avatar(AvatarUtility.loadFromFileSystem("avatar3.png"))
                 .build();
         List<User>initUsers = List.of(admin, hubert, test, user);
         initUsers.forEach(u -> userService.create(u));

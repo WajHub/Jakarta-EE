@@ -23,8 +23,5 @@ public class User  implements Serializable {
     @ToString.Exclude
     private String password;
     private List<UserRole> roles;
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private byte[] avatar;
 
 }
