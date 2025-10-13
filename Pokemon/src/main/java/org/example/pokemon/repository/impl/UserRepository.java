@@ -23,7 +23,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public Optional<User> find(UUID id) {
-        return Optional.empty();
+        return Optional.ofNullable(datastore.findUser(id));
     }
 
     @Override

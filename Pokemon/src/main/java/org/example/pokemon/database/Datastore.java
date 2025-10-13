@@ -7,6 +7,7 @@ import org.example.pokemon.utils.CloningUtility;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public class Datastore {
 
@@ -30,5 +31,12 @@ public class Datastore {
         return users.stream()
                 .map(cloningUtility::clone)
                 .toList();
+    }
+
+    public User findUser(UUID id) {
+        return users.stream()
+                .filter(user -> user.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 }

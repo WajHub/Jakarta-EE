@@ -1,5 +1,6 @@
 package org.example.pokemon.repository.api;
 
+import org.example.pokemon.dto.response.UserResponse;
 import org.example.pokemon.entity.User;
 
 import java.util.Optional;

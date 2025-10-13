@@ -1,6 +1,8 @@
 package org.example.pokemon;
 
 import java.io.*;
+import java.util.UUID;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import jakarta.json.bind.Jsonb;
@@ -32,6 +34,12 @@ public class ApiServlet extends HttpServlet {
                 response.getWriter().write(jsonb.toJson(userController.getUsers()));
                 return;
             }
+            if (path.matches(Patterns.USER.pattern())) {
+                response.setContentType("application/json");
+                UUID uuid = extractUuid(Patterns.USER, path);
+                response.getWriter().write(jsonb.toJson(userController.getUser(uuid)));
+                return;
+            }
         }
         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
@@ -44,7 +52,16 @@ public class ApiServlet extends HttpServlet {
         private static final Pattern UUID = Pattern.compile("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
 
         public static final Pattern USERS = Pattern.compile("/users/?");
+        public static final Pattern USER = Pattern.compile("/users/(%s)".formatted(UUID.pattern()));
 
+    }
+
+    private static UUID extractUuid(Pattern pattern, String path) {
+        Matcher matcher = pattern.matcher(path);
+        if (matcher.matches()) {
+            return UUID.fromString(matcher.group(1));
+        }
+        throw new IllegalArgumentException("No UUID in path.");
     }
 
     private String parseRequestPath(HttpServletRequest request) {

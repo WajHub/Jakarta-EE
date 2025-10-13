@@ -3,9 +3,11 @@ package org.example.pokemon.service;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.response.UserResponse;
 import org.example.pokemon.entity.User;
+import org.example.pokemon.exception.NotFoundException;
 import org.example.pokemon.repository.impl.UserRepository;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class UserService {
@@ -26,5 +28,14 @@ public class UserService {
         return userRepository.findAll()
                 .stream().map(factory.usertoUserResponse())
                 .collect(Collectors.toList());
+    }
+
+    public UserResponse getUser(UUID uuid) {
+        return userRepository.find(uuid)
+                .map(factory.usertoUserResponse())
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("User not found! %s", uuid.toString()
+                        ))
+                );
     }
 }

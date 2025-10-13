@@ -4,10 +4,11 @@ import org.example.pokemon.dto.response.UserResponse;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface IUserController {
 
     List<UserResponse> getUsers();
 
-    UserResponse getUserById(Long id);
+    UserResponse getUser(UUID uuid);
 }

@@ -5,6 +5,7 @@ import org.example.pokemon.dto.response.UserResponse;
 import org.example.pokemon.service.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 public class UserController implements IUserController {
 
@@ -19,10 +20,8 @@ public class UserController implements IUserController {
         return userService.getUsers();
     }
 
-
     @Override
-    public UserResponse getUserById(Long id) {
-        return null;
+    public UserResponse getUser(UUID uuid) {
+        return userService.getUser(uuid);
     }
-
 }
