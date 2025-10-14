@@ -14,6 +14,8 @@ public interface IUserController {
 
     byte[] getUserAvatar(UUID uuid);
 
+    void postUserAvatar(UUID uuid, InputStream avatar);
+
     void putUserAvatar(UUID uuid, InputStream avatar);
 
     void deleteAvatar(UUID uuid);

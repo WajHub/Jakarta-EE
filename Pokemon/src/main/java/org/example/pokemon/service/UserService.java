@@ -56,19 +56,34 @@ public class UserService {
             .orElseThrow(() -> new NotFoundException("User not found!"));
     }
 
+    public void postUserAvatar(UUID uuid, InputStream avatar) {
+        userRepository.find(uuid)
+            .ifPresentOrElse(
+                (user) ->{
+                    if(AvatarUtility.avatarExists(uuid.toString())) {
+                        throw new HttpRequestException("User has already avatar!", 400);
+                    }
+                    else {
+                        try {
+                            AvatarUtility.saveFile(uuid.toString(), avatar.readAllBytes());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }, () ->  {
+                    throw new NotFoundException("User not found!");
+                });
+    }
+
     public void putUserAvatar(UUID uuid, InputStream avatar) {
         userRepository.find(uuid)
             .ifPresentOrElse(
             (user) ->{
-                if(AvatarUtility.avatarExists(uuid.toString())) {
-                    throw new HttpRequestException("User has already avatar!", 400);
-                }
-                else {
-                    try {
-                        AvatarUtility.saveFile(uuid.toString(), avatar.readAllBytes());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                try {
+                    AvatarUtility.deleteFile(uuid.toString());
+                    AvatarUtility.saveFile(uuid.toString(), avatar.readAllBytes());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }, () ->  {
                 throw new NotFoundException("User not found!");
