@@ -1,6 +1,5 @@
 package org.example.pokemon.database;
 
-import lombok.NoArgsConstructor;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.utils.CloningUtility;
 

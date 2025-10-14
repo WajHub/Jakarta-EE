@@ -53,14 +53,24 @@ public class ApiServlet extends HttpServlet {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
 
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String path = parseRequestPath(request);
+        String servletPath = request.getServletPath();
+        if (servletPath.equals("/api")) {
+             if (path.matches(Patterns.USER_AVATAR.pattern())) {
+                UUID uuid = extractUuid(Patterns.USER_AVATAR, path);
+                userController.postUserAvatar(uuid, request.getPart("avatar").getInputStream());
+                return;
+            }
+        }
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+    }
+
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = parseRequestPath(request);
         String servletPath = request.getServletPath();
         if (servletPath.equals("/api")) {
-            if (path.matches(Patterns.USER.pattern())) {
-                UUID uuid = extractUuid(Patterns.USER, path);
-                return;
-            } else if (path.matches(Patterns.USER_AVATAR.pattern())) {
+            if (path.matches(Patterns.USER_AVATAR.pattern())) {
                 UUID uuid = extractUuid(Patterns.USER_AVATAR, path);
                 userController.putUserAvatar(uuid, request.getPart("avatar").getInputStream());
                 return;

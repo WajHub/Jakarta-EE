@@ -32,6 +32,11 @@ public class UserController implements IUserController {
     }
 
     @Override
+    public void postUserAvatar(UUID uuid, InputStream avatar) {
+        userService.postUserAvatar(uuid, avatar);
+    }
+
+    @Override
     public void putUserAvatar(UUID uuid, InputStream avatar){
         userService.putUserAvatar(uuid, avatar);
     }
