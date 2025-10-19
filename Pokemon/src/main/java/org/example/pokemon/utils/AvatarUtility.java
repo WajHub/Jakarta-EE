@@ -1,5 +1,7 @@
 package org.example.pokemon.utils;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,15 +9,11 @@ import java.io.IOException;
 
 public class AvatarUtility {
 
-    private static final String PATH_TO_RESOURCES = "/src/main/resources/avatars/";
+    public static String PATH_TO_RESOURCES = "~/";
 
     public static byte[] loadFile(String fileName) {
         try {
-            Path rootDit = Paths.get(System.getProperty("user.dir"));
-            while (rootDit != null && !rootDit.getFileName().toString().equalsIgnoreCase("Pokemon")) {
-                rootDit = rootDit.getParent();
-            }
-            Path path = Paths.get(rootDit+PATH_TO_RESOURCES+fileName+".png");
+            Path path = Paths.get(PATH_TO_RESOURCES+fileName+".png");
             if (!Files.exists(path)) {
                 throw new IllegalArgumentException("Not found: " + path);
             }
@@ -27,18 +25,12 @@ public class AvatarUtility {
 
     public static void saveFile(String fileName, byte[] avatar) {
         try {
-            Path rootDir = Paths.get(System.getProperty("user.dir"));
-            while (rootDir != null && !rootDir.getFileName().toString().equalsIgnoreCase("Pokemon")) {
-                rootDir = rootDir.getParent();
-            }
-
-            Path avatarDir = Paths.get(rootDir + PATH_TO_RESOURCES);
-            Path filePath = avatarDir.resolve(fileName + ".png");
-
-            if (!Files.exists(avatarDir)) {
-                Files.createDirectories(avatarDir);
-            }
-            Files.write(filePath, avatar);
+            Path filePath = Paths.get(PATH_TO_RESOURCES+fileName+".png");
+            File avatarFile = filePath.toFile();
+            avatarFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(avatarFile);
+            fos.write(avatar);
+            fos.close();
         } catch (IOException e) {
             throw new RuntimeException("Error: ", e.getCause());
         }
@@ -46,13 +38,9 @@ public class AvatarUtility {
 
     public static boolean avatarExists(String fileName) {
         try {
-            Path rootDir = Paths.get(System.getProperty("user.dir"));
-            while (rootDir != null && !rootDir.getFileName().toString().equalsIgnoreCase("Pokemon")) {
-                rootDir = rootDir.getParent();
-            }
-
-            Path path = Paths.get(rootDir + PATH_TO_RESOURCES + fileName + ".png");
-            return Files.exists(path);
+            Path filePath = Paths.get(PATH_TO_RESOURCES+fileName+".png");
+            System.out.println(filePath);
+            return Files.exists(filePath);
         } catch (Exception e) {
             return false;
         }
@@ -60,15 +48,10 @@ public class AvatarUtility {
 
     public static boolean deleteFile(String fileName) {
         try {
-            Path rootDir = Paths.get(System.getProperty("user.dir"));
-            while (rootDir != null && !rootDir.getFileName().toString().equalsIgnoreCase("Pokemon")) {
-                rootDir = rootDir.getParent();
-            }
+            Path filePath = Paths.get(PATH_TO_RESOURCES+fileName+".png");
 
-            Path path = Paths.get(rootDir + PATH_TO_RESOURCES + fileName + ".png");
-
-            if (Files.exists(path)) {
-                Files.delete(path);
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
                 return true;
             } else {
                 return false;
