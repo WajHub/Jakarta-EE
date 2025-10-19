@@ -7,7 +7,6 @@ import lombok.SneakyThrows;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.service.UserService;
-import org.example.pokemon.utils.AvatarUtility;
 
 import java.util.List;
 import java.util.UUID;
