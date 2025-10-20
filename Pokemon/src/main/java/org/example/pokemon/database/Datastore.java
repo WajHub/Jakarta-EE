@@ -1,5 +1,8 @@
 package org.example.pokemon.database;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.utils.CloningUtility;
 
@@ -8,12 +11,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+@ApplicationScoped
+@NoArgsConstructor(force = true)
 public class Datastore {
 
     private final CloningUtility cloningUtility;
 
     private final Set<User> users = new HashSet<>();
 
+    @Inject
     public Datastore(CloningUtility cloningUtility) {
         this.cloningUtility = cloningUtility;
     }

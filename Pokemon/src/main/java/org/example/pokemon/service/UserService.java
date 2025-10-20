@@ -1,5 +1,9 @@
 package org.example.pokemon.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.response.UserResponse;
 import org.example.pokemon.entity.User;
@@ -14,11 +18,14 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
+@NoArgsConstructor
 public class UserService {
 
-    private final DtoFunctionFactory factory;
-    private final UserRepository userRepository;
+    private DtoFunctionFactory factory;
+    private UserRepository userRepository;
 
+    @Inject
     public UserService(UserRepository userRepository, DtoFunctionFactory factory) {
         this.factory = factory;
         this.userRepository = userRepository;
