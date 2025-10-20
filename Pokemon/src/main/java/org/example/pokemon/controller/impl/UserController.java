@@ -1,20 +1,26 @@
 package org.example.pokemon.controller.impl;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.example.pokemon.controller.api.IUserController;
 import org.example.pokemon.dto.response.UserResponse;
 import org.example.pokemon.service.UserService;
-
 import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
+@RequestScoped
+@NoArgsConstructor
 public class UserController implements IUserController {
 
+    private UserService userService;
+
+    @Inject
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
-    private final UserService userService;
 
     @Override
     public List<UserResponse> getUsers() {

@@ -1,8 +1,13 @@
 package org.example.pokemon.configuration;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.entity.UserRole;
@@ -11,14 +16,17 @@ import org.example.pokemon.service.UserService;
 import java.util.List;
 import java.util.UUID;
 
-@WebListener
-public class InitData implements ServletContextListener {
+@ApplicationScoped
+public class InitData {
 
     private UserService userService;
 
-    @Override
-    public void contextInitialized(ServletContextEvent event) {
-        userService = (UserService) event.getServletContext().getAttribute("userService");
+    @Inject
+    public InitData(UserService userService) {
+        this.userService = userService;
+    }
+
+    public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
         init();
     }
 

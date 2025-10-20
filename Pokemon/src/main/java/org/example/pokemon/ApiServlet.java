@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.ServletException;
@@ -20,10 +21,9 @@ public class ApiServlet extends HttpServlet {
 
     private UserController userController;
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        userController = (UserController) getServletContext().getAttribute("userController");
+    @Inject
+    public ApiServlet(UserController userController) {
+        this.userController = userController;
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

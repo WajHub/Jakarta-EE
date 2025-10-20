@@ -1,5 +1,9 @@
 package org.example.pokemon.repository.impl;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import org.example.pokemon.database.Datastore;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.repository.api.IUserRepository;
@@ -8,10 +12,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@ApplicationScoped
+@NoArgsConstructor
 public class UserRepository implements IUserRepository {
 
-    private final Datastore datastore;
+    private Datastore datastore;
 
+    @Inject
     public UserRepository(Datastore datastore) {
         this.datastore = datastore;
     }

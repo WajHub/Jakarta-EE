@@ -1,5 +1,9 @@
 package org.example.pokemon.utils;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
@@ -7,6 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
 
+@ApplicationScoped
+@NoArgsConstructor
 public class AvatarUtility {
 
     public static String PATH_TO_RESOURCES = "~/";

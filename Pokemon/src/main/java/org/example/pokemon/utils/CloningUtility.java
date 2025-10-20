@@ -1,9 +1,11 @@
 package org.example.pokemon.utils;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import lombok.SneakyThrows;
 
 import java.io.*;
 
+@ApplicationScoped
 public class CloningUtility {
 
     @SneakyThrows
