@@ -27,5 +27,7 @@ public class PokemonSpecies  implements Serializable {
     private Pokemon evolutionTarget;
     private Integer levelToEvolve;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<Pokemon> pokemons;
 }

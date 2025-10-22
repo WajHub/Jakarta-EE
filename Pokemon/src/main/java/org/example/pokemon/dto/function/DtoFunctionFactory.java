@@ -6,4 +6,5 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class DtoFunctionFactory {
 
     public UserToUserResponse usertoUserResponse() { return new UserToUserResponse();};
+    public PokemonToPokemonResponse pokemontoPokemonResponse() { return new PokemonToPokemonResponse();};
 }

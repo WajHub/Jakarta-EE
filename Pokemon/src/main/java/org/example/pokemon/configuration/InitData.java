@@ -9,10 +9,16 @@ import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
+import org.example.pokemon.entity.Pokemon;
+import org.example.pokemon.entity.PokemonSpecies;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.entity.UserRole;
+import org.example.pokemon.service.PokemonService;
+import org.example.pokemon.service.PokemonSpeciesService;
 import org.example.pokemon.service.UserService;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,10 +26,14 @@ import java.util.UUID;
 public class InitData {
 
     private UserService userService;
+    private PokemonService pokemonService;
+    private PokemonSpeciesService pokemonSpeciesService;
 
     @Inject
-    public InitData(UserService userService) {
+    public InitData(UserService userService,  PokemonService pokemonService, PokemonSpeciesService pokemonSpeciesService) {
         this.userService = userService;
+        this.pokemonService = pokemonService;
+        this.pokemonSpeciesService = pokemonSpeciesService;
     }
 
     public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
@@ -63,6 +73,48 @@ public class InitData {
         List<User>initUsers = List.of(admin, hubert, test, user);
         initUsers.forEach(u -> userService.create(u));
 
+        PokemonSpecies pikachuSpecies = PokemonSpecies.builder()
+                .id(UUID.fromString("965830df-f75b-40dd-8200-1cb0a1be4d38"))
+                .name("Pikachu")
+                .increaseAttackPerLevel(10)
+                .increaseDefensePerLevel(5)
+                .increaseHealthPerLevel(100)
+                .levelToEvolve(12)
+                .build();
+
+        Pokemon pokemon_huberta = Pokemon.builder()
+                .id(UUID.fromString("70c51310-63e6-464c-ba13-5a7464cd311d"))
+                .species(pikachuSpecies)
+                .name("Moj_pokemon")
+                .level(11)
+                .health(200)
+                .attack(12)
+                .defense(14)
+                .owner(hubert)
+                .captureDate(LocalDate.now())
+                .build();
+
+        Pokemon pokemon_admina = Pokemon.builder()
+                .id(UUID.fromString("3a47a2ca-a927-4a78-be0c-b40ad0987658"))
+                .species(pikachuSpecies)
+                .name("Nazwa")
+                .level(11)
+                .health(200)
+                .attack(12)
+                .defense(14)
+                .owner(admin)
+                .captureDate(LocalDate.now())
+                .build();
+
+
+        pikachuSpecies.setPokemons(List.of(pokemon_huberta,  pokemon_admina));
+
+        pokemonService.create(pokemon_huberta);
+        pokemonService.create(pokemon_admina);
+
+        pokemonSpeciesService.create(pikachuSpecies);
+
+        System.out.println(pokemonService.getPokemons());
 
     }
 }
