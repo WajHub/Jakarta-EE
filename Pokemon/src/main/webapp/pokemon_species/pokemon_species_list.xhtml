@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <ui:define name="content">
+        <h:outputStylesheet library="pokemon" name="css/pokemon_list.css"/>
+        <article>
+
+            <header><h2>Pokemon Species</h2></header>
+                <h:dataTable id="characterTable" value="#{pokemonSpeciesList.speciesList}" var="pokemon"
+                             styleClass="table align-middle mb-0 bg-white" headerClass="bg-light">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{pokemon.name}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">View</f:facet>
+                        <h:link outcome="/character/character_view.xhtml" value="View">
+                            <f:param name="id" value="#{pokemon.id}"/>
+                        </h:link>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Edit</f:facet>
+                        <h:link outcome="/character/character_edit.xhtml" value="Edit">
+                            <f:param name="id" value="#{pokemon.id}"/>
+                        </h:link>
+                    </h:column>
+
+<!--                    <h:column>-->
+<!--                        <f:facet name="header">Delete</f:facet>-->
+<!--                        <h:form>-->
+<!--                            <h:commandButton styleClass="btn" value="Delete"-->
+<!--                                             actionListener="#{characterList.deleteAction(character)}">-->
+<!--                                <f:ajax execute="@this" render=":characterTable"/>-->
+<!--                            </h:commandButton>-->
+<!--                        </h:form>-->
+<!--                    </h:column>-->
+
+<!--                    <f:facet name="footer">-->
+<!--                        <h:button styleClass="btn" outcome="/character/character_create__basic.xhtml"-->
+<!--                                  value="Create new character"/>-->
+<!--                        <h:button rendered="#{facesContext.externalContext.isUserInRole('admin')}"-->
+<!--                                  styleClass="btn" outcome="/character/profession_create.xhtml"-->
+<!--                                  value="Create new profession"/>-->
+<!--                    </f:facet>-->
+                </h:dataTable>
+        </article>
+    </ui:define>
+
+</ui:composition>

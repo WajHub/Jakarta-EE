@@ -31,7 +31,7 @@ public class PokemonSpeciesRepository implements IPokemonSpeciesRepository {
 
     @Override
     public List<PokemonSpecies> findAll() {
-        return List.of();
+        return datastore.findAllPokemonSpecies();
     }
 
     @Override

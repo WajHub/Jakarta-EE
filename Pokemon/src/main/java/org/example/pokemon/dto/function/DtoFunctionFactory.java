@@ -7,4 +7,5 @@ public class DtoFunctionFactory {
 
     public UserToUserResponse usertoUserResponse() { return new UserToUserResponse();};
     public PokemonToPokemonResponse pokemontoPokemonResponse() { return new PokemonToPokemonResponse();};
+    public SpeciesToSpeciesResponse speciesToSpeciesResponse() { return new SpeciesToSpeciesResponse();};
 }

@@ -72,4 +72,10 @@ public class Datastore {
                 .toList();
     }
 
+    public List<PokemonSpecies> findAllPokemonSpecies() {
+        return pokemonSpecies.stream()
+                .map(cloningUtility::clone)
+                .toList();
+    }
+
 }

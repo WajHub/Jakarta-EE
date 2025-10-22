@@ -82,6 +82,16 @@ public class InitData {
                 .levelToEvolve(12)
                 .build();
 
+        PokemonSpecies raichuSpecies = PokemonSpecies.builder()
+                .id(UUID.fromString("a70c86ce-bf99-4335-b2af-3d6535958973"))
+                .name("Raichu")
+                .increaseAttackPerLevel(20)
+                .increaseDefensePerLevel(10)
+                .increaseHealthPerLevel(200)
+                .levelToEvolve(null)
+                .build();
+        pikachuSpecies.setEvolutionTarget(raichuSpecies);
+
         Pokemon pokemon_huberta = Pokemon.builder()
                 .id(UUID.fromString("70c51310-63e6-464c-ba13-5a7464cd311d"))
                 .species(pikachuSpecies)

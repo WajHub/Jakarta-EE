@@ -37,13 +37,17 @@
                         </li>
                         <li class="nav-item">
                             <h:link styleClass="nav-link"
+                                    outcome="/pokemon_species/pokemon_species_list.xhtml">Pokemon Species</h:link>
+                        </li>
+                        <li class="nav-item">
+                            <h:link styleClass="nav-link"
                                     outcome="/pokemon/pokemon_list.xhtml">Pokemons</h:link>
                         </li>
                     </ul>
                 </div>
             </nav>
 
-            <main>
+            <main class="p-2">
                 <ui:insert name="content"/>
             </main>
 
