@@ -7,9 +7,12 @@ import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.response.PokemonSpeciesResponse;
 import org.example.pokemon.entity.PokemonSpecies;
+import org.example.pokemon.exception.NotFoundException;
 import org.example.pokemon.repository.impl.PokemonSpeciesRepository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -34,5 +37,20 @@ public class PokemonSpeciesService {
                 .stream()
                 .map(factory.speciesToSpeciesResponse())
                 .collect(Collectors.toList());
+    }
+
+    public PokemonSpeciesResponse findById(UUID id) {
+        Optional<PokemonSpecies> species = pokemonSpeciesRepository.find(id);
+        return species
+                .map(factory.speciesToSpeciesResponse())
+                .orElseThrow(() -> new NotFoundException("Pokemon species not found"));
+    }
+
+    public void delete(UUID id) {
+        pokemonSpeciesRepository.delete(
+                pokemonSpeciesRepository
+                    .find(id)
+                    .orElseThrow(() -> new NotFoundException("Pokemon species not found"))
+        );
     }
 }

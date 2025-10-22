@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -17,4 +18,5 @@ public class PokemonSpeciesResponse {
     private int increaseHealthPerLevel;
     private int increaseAttackPerLevel;
     private int increaseDefensePerLevel;
+    private List<PokemonResponse> pokemons;
 }

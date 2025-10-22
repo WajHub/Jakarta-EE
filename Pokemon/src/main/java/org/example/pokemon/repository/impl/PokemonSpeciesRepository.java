@@ -26,7 +26,7 @@ public class PokemonSpeciesRepository implements IPokemonSpeciesRepository {
 
     @Override
     public Optional<PokemonSpecies> find(UUID id) {
-        return Optional.empty();
+        return datastore.findPokemonSpeciesById(id);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class PokemonSpeciesRepository implements IPokemonSpeciesRepository {
 
     @Override
     public void delete(PokemonSpecies entity) {
-
+        datastore.deletePokemonSpecies(entity);
     }
 
     @Override

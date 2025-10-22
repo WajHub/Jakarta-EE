@@ -123,8 +123,7 @@ public class InitData {
         pokemonService.create(pokemon_admina);
 
         pokemonSpeciesService.create(pikachuSpecies);
-
-        System.out.println(pokemonService.getPokemons());
+        pokemonSpeciesService.create(raichuSpecies);
 
     }
 }

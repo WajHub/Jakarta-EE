@@ -8,10 +8,7 @@ import org.example.pokemon.entity.PokemonSpecies;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.utils.CloningUtility;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @ApplicationScoped
 @NoArgsConstructor(force = true)
@@ -78,4 +75,14 @@ public class Datastore {
                 .toList();
     }
 
+    public Optional<PokemonSpecies> findPokemonSpeciesById(UUID id) {
+        return pokemonSpecies.stream()
+                .filter(species -> species.getId().equals(id))
+                .findFirst()
+                .map(cloningUtility::clone);
+    }
+
+    public void deletePokemonSpecies(PokemonSpecies entity) {
+        pokemonSpecies.removeIf(species -> species.getId().equals(entity.getId()));
+    }
 }

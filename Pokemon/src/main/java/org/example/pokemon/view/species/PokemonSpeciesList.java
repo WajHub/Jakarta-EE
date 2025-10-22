@@ -24,10 +24,14 @@ public class PokemonSpeciesList {
     public List<PokemonSpeciesResponse> getSpeciesList() {
         if (speciesList == null) {
             speciesList = service.findAll();
-            System.out.println(speciesList);
             return speciesList;
         } else {
             return speciesList;
         }
+    }
+
+    public String deleteAction(PokemonSpeciesResponse species) {
+        service.delete(species.getId());
+        return "pokemon_species_list?faces-redirect=true";
     }
 }

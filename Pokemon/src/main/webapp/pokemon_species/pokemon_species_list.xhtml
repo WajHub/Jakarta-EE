@@ -18,8 +18,7 @@
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">View</f:facet>
-                        <h:link outcome="/character/character_view.xhtml" value="View">
+                        <h:link outcome="/pokemon_species/pokemon_species_view.xhtml" value="View" styleClass="nav-link">
                             <f:param name="id" value="#{pokemon.id}"/>
                         </h:link>
                     </h:column>
@@ -35,8 +34,8 @@
 <!--                        <f:facet name="header">Delete</f:facet>-->
 <!--                        <h:form>-->
 <!--                            <h:commandButton styleClass="btn" value="Delete"-->
-<!--                                             actionListener="#{characterList.deleteAction(character)}">-->
-<!--                                <f:ajax execute="@this" render=":characterTable"/>-->
+<!--                                             actionListener="#{pokemonSpeciesList.deleteAction(pokemon)}">-->
+<!--&lt;!&ndash;                                <f:ajax execute="@this" render=":characterTable"/>&ndash;&gt;-->
 <!--                            </h:commandButton>-->
 <!--                        </h:form>-->
 <!--                    </h:column>-->

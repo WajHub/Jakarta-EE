@@ -13,9 +13,12 @@ public class PokemonToPokemonResponse  implements Function<Pokemon, PokemonRespo
     public PokemonResponse apply(Pokemon pokemon) {
         return PokemonResponse.builder()
                 .name(pokemon.getName())
+                .health(pokemon.getHealth())
+                .attack(pokemon.getAttack())
+                .defense(pokemon.getDefense())
+                .speciesName(pokemon.getSpecies().getName())
+                .ownerUsername(pokemon.getOwner().getUsername())
                 .captureDate(pokemon.getCaptureDate())
-                .species(pokemon.getSpecies())
                 .build();
-
     }
 }
