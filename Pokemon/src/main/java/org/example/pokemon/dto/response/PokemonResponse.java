@@ -22,7 +22,7 @@ public class PokemonResponse {
     private int attack;
     private int defense;
     private final int level;
-    private final LocalDate captureDate;
+    private final String captureDate;
     private final String speciesName;
     private final String ownerUsername;
 }

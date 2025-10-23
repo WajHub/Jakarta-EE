@@ -37,8 +37,13 @@ public class PokemonService {
                 .collect(Collectors.toList());
     }
 
+    public PokemonResponse findById(UUID id) {
+        return pokemonRepository.find(id)
+                .map(factory.pokemontoPokemonResponse())
+                .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
+    }
+
     public void delete(UUID id) {
-        System.out.println("TEST");
         Pokemon pokemon = pokemonRepository.find(id)
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
         System.out.println(pokemon);

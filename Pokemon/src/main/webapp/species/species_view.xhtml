@@ -46,6 +46,13 @@
                                 <f:facet name="header">Name</f:facet>
                                 <h:outputText value="#{pokemon.name}"/>
                             </h:column>
+
+                            <h:column>
+                                <h:link outcome="/pokemon/pokemon_view.xhtml" value="View" styleClass="nav-link">
+                                    <f:param name="id" value="#{pokemon.id}"/>
+                                </h:link>
+                            </h:column>
+
                             <h:column>
                                     <h:commandButton styleClass="btn" value="Delete"
                                                      action="#{speciesView.deleteAction()}">

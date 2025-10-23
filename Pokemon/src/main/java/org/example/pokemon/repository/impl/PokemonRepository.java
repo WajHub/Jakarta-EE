@@ -25,7 +25,7 @@ public class PokemonRepository implements IPokemonRepository {
 
     @Override
     public Optional<Pokemon> find(UUID id) {
-        return Optional.empty();
+        return datastore.findPokemonById(id);
     }
 
     @Override

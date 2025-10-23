@@ -89,4 +89,11 @@ public class Datastore {
     public void deletePokemon(Pokemon entity) {
         pokemons.removeIf(pokemon -> pokemon.getId().equals(entity.getId()));
     }
+
+    public Optional<Pokemon> findPokemonById(UUID id) {
+        return pokemons.stream()
+                .filter(pokemon -> pokemon.getId().equals(id))
+                .findFirst()
+                .map(cloningUtility::clone);
+    }
 }
