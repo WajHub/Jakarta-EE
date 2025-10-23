@@ -4,21 +4,16 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Initialized;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
-import jakarta.servlet.ServletContextEvent;
-import jakarta.servlet.ServletContextListener;
-import jakarta.servlet.annotation.WebListener;
-import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.pokemon.entity.Pokemon;
 import org.example.pokemon.entity.PokemonSpecies;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.service.PokemonService;
-import org.example.pokemon.service.PokemonSpeciesService;
+import org.example.pokemon.service.SpeciesService;
 import org.example.pokemon.service.UserService;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,10 +22,10 @@ public class InitData {
 
     private UserService userService;
     private PokemonService pokemonService;
-    private PokemonSpeciesService pokemonSpeciesService;
+    private SpeciesService pokemonSpeciesService;
 
     @Inject
-    public InitData(UserService userService,  PokemonService pokemonService, PokemonSpeciesService pokemonSpeciesService) {
+    public InitData(UserService userService,  PokemonService pokemonService, SpeciesService pokemonSpeciesService) {
         this.userService = userService;
         this.pokemonService = pokemonService;
         this.pokemonSpeciesService = pokemonSpeciesService;
@@ -90,6 +85,15 @@ public class InitData {
                 .increaseHealthPerLevel(200)
                 .levelToEvolve(null)
                 .build();
+
+        PokemonSpecies charmanderSpecies = PokemonSpecies.builder()
+                .id(UUID.fromString("6614a2ee-96b8-4cae-ae18-61691d05834e"))
+                .name("Chahrmander")
+                .increaseAttackPerLevel(25)
+                .increaseDefensePerLevel(15)
+                .increaseHealthPerLevel(120)
+                .levelToEvolve(null)
+                .build();
         pikachuSpecies.setEvolutionTarget(raichuSpecies);
 
         Pokemon pokemon_huberta = Pokemon.builder()
@@ -124,6 +128,7 @@ public class InitData {
 
         pokemonSpeciesService.create(pikachuSpecies);
         pokemonSpeciesService.create(raichuSpecies);
+        pokemonSpeciesService.create(charmanderSpecies);
 
     }
 }

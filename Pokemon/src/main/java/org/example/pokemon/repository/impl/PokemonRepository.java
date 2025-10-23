@@ -40,7 +40,7 @@ public class PokemonRepository implements IPokemonRepository {
 
     @Override
     public void delete(Pokemon entity) {
-
+        datastore.deletePokemon(entity);
     }
 
     @Override

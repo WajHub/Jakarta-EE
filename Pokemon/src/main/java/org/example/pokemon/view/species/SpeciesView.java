@@ -7,28 +7,30 @@ import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.pokemon.dto.response.PokemonSpeciesResponse;
+import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.exception.NotFoundException;
-import org.example.pokemon.service.PokemonSpeciesService;
+import org.example.pokemon.service.PokemonService;
+import org.example.pokemon.service.SpeciesService;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RequestScoped
 @Named
-public class PokemonSpeciesView {
-    private PokemonSpeciesService service;
+public class SpeciesView {
+    private SpeciesService service;
+    private PokemonService pokemonService;
     @Setter
     @Getter
-    private PokemonSpeciesResponse pokemonSpecies;
+    private SpeciesResponse pokemonSpecies;
+
     @Setter
     @Getter
     private UUID id;
 
     @Inject
-    public PokemonSpeciesView(PokemonSpeciesService service) {
+    public SpeciesView(SpeciesService service, PokemonService pokemonService) {
+        this.pokemonService = pokemonService;
         this.service = service;
     }
 
@@ -42,4 +44,10 @@ public class PokemonSpeciesView {
             facesContext.responseComplete();
         }
     }
+
+    public void deleteAction() {
+        System.out.println("Deleting: ");
+        // pokemonService.delete(pokemon.getId());
+    }
+
 }

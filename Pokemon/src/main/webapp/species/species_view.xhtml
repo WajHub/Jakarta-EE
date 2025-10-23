@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{speciesView.id}" required="true"/>
+        <f:viewAction action="#{speciesView.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <article>
+            <header><h2><h:outputText value="#{speciesView.pokemonSpecies.name}"/></h2></header>
+            <div class="container">
+                <div class="col my-2">
+                    <div class="row mb-1">
+                            Increment by level up
+                    </div>
+                    <div class="row mb-1">
+                        Health:
+                        <h:outputText value="#{speciesView.pokemonSpecies.increaseHealthPerLevel}"/>
+                    </div>
+                    <div class="row mb-1">
+                        Attack:
+                        <h:outputText value="#{speciesView.pokemonSpecies.increaseAttackPerLevel}"/>
+                    </div>
+                    <div class="row mb-1">
+                        Deffense:
+                        <h:outputText value="#{speciesView.pokemonSpecies.increaseDefensePerLevel}"/>
+                    </div>
+
+                </div>
+
+                <div class="col my-3">
+                    <h3>Pokemons</h3>
+                    <h:form id="speciesForm">
+                        <h:dataTable id="pokemonTable"
+                                     value="#{speciesView.pokemonSpecies.pokemons}"
+                                     var="pokemon"
+                                     styleClass="table align-middle mb-0 bg-white"
+                                     headerClass="bg-light">
+
+                            <h:column>
+                                <f:facet name="header">Name</f:facet>
+                                <h:outputText value="#{pokemon.name}"/>
+                            </h:column>
+                            <h:column>
+                                    <h:commandButton styleClass="btn" value="Delete"
+                                                     action="#{speciesView.deleteAction()}">
+                                    </h:commandButton>
+
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </article>
+    </ui:define>
+
+
+</ui:composition>

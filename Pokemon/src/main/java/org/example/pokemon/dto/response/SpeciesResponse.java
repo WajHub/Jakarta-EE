@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PokemonSpeciesResponse {
+public class SpeciesResponse {
     private UUID id;
     private String name;
     private int increaseHealthPerLevel;

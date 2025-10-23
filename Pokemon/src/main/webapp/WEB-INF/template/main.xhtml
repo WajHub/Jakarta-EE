@@ -23,10 +23,10 @@
 
     <h:body>
         <!-- By defailt channel is application scoped.-->
-<!--        <f:websocket channel="broadcastChannel" scope="application" onmessage="receive"/>-->
-<!--        &lt;!&ndash; By defailt user channel is session scoped.&ndash;&gt;-->
-<!--        <f:websocket rendered="#{facesContext.externalContext.userPrincipal != null}" channel="userChannel"-->
-<!--                     user="#{facesContext.externalContext.userPrincipal.name}" onmessage="receive"/>-->
+        <f:websocket channel="broadcastChannel" scope="application" onmessage="receive"/>
+        <!-- By defailt user channel is session scoped.-->
+        <f:websocket rendered="#{facesContext.externalContext.userPrincipal != null}" channel="userChannel"
+                     user="#{facesContext.externalContext.userPrincipal.name}" onmessage="receive"/>
 
         <div class="container-fluid p-0 h-100">
             <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -37,7 +37,7 @@
                         </li>
                         <li class="nav-item">
                             <h:link styleClass="nav-link"
-                                    outcome="/pokemon_species/pokemon_species_list.xhtml">Pokemon Species</h:link>
+                                    outcome="/species/species_list.xhtml">Pokemon Species</h:link>
                         </li>
                         <li class="nav-item">
                             <h:link styleClass="nav-link"
@@ -60,7 +60,7 @@
 
             <footer class="text-center text-lg-start bg-light text-muted p-2">
                 <div class="text-center">
-                    Copyright &#169; Hubert Wajda, 193511
+                    Copyright &#169; Hubert Wajda, 193511 - Laboratorium z roku 1410 PG (przedszkole)
                 </div>
             </footer>
         </div>

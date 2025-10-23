@@ -5,7 +5,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
-import org.example.pokemon.dto.response.PokemonSpeciesResponse;
+import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.entity.PokemonSpecies;
 import org.example.pokemon.exception.NotFoundException;
 import org.example.pokemon.repository.impl.PokemonSpeciesRepository;
@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 
 @ApplicationScoped
 @NoArgsConstructor
-public class PokemonSpeciesService {
+public class SpeciesService {
 
     private PokemonSpeciesRepository pokemonSpeciesRepository;
     private DtoFunctionFactory factory;
 
     @Inject
-    public PokemonSpeciesService(PokemonSpeciesRepository pokemonSpeciesRepository, DtoFunctionFactory factory) {
+    public SpeciesService(PokemonSpeciesRepository pokemonSpeciesRepository, DtoFunctionFactory factory) {
         this.pokemonSpeciesRepository = pokemonSpeciesRepository;
         this.factory = factory;
     }
@@ -32,14 +32,14 @@ public class PokemonSpeciesService {
         pokemonSpeciesRepository.create(pSpecies);
     }
 
-    public List<PokemonSpeciesResponse> findAll() {
+    public List<SpeciesResponse> findAll() {
         return pokemonSpeciesRepository.findAll()
                 .stream()
                 .map(factory.speciesToSpeciesResponse())
                 .collect(Collectors.toList());
     }
 
-    public PokemonSpeciesResponse findById(UUID id) {
+    public SpeciesResponse findById(UUID id) {
         Optional<PokemonSpecies> species = pokemonSpeciesRepository.find(id);
         return species
                 .map(factory.speciesToSpeciesResponse())

@@ -11,6 +11,7 @@ import org.example.pokemon.entity.Pokemon;
 import org.example.pokemon.repository.impl.PokemonRepository;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -34,6 +35,14 @@ public class PokemonService {
         return pokemonRepository.findAll()
                 .stream().map(factory.pokemontoPokemonResponse())
                 .collect(Collectors.toList());
+    }
+
+    public void delete(UUID id) {
+        System.out.println("TEST");
+        Pokemon pokemon = pokemonRepository.find(id)
+                .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
+        System.out.println(pokemon);
+        pokemonRepository.delete(pokemon);
     }
 
 }
