@@ -45,6 +45,6 @@ public class PokemonRepository implements IPokemonRepository {
 
     @Override
     public void update(Pokemon entity) {
-
+        datastore.updatePokemon(entity);
     }
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{pokemonUpdateView.id}" />
+        <f:viewAction action="#{pokemonUpdateView.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <div class="container mt-5 w-25">
+            <h2 class="mb-4">Create Pokémon</h2>
+
+            <h:form enctype="multipart/form-data">
+
+                <div class="mb-3">
+                    <h:outputLabel for="name" value="Name:"/>
+                    <h:inputText id="name"
+                                 value="#{pokemonUpdateView.pokemonEditRequest.name}"
+                                 styleClass="form-control"/>
+                </div>
+
+                <div class="mb-3">
+                    <h:outputLabel for="health" value="Health:" />
+                    <h:inputText id="health"
+                                 value="#{pokemonUpdateView.pokemonEditRequest.health}"
+                                 styleClass="form-control"/>
+                </div>
+
+                <div class="mb-3">
+                    <h:outputLabel for="attack" value="Attack:" />
+                    <h:inputText id="attack"
+                                 value="#{pokemonUpdateView.pokemonEditRequest.attack}"
+                                 styleClass="form-control"/>
+                </div>
+
+                <div class="mb-3">
+                    <h:outputLabel for="defense" value="Defense:" />
+                    <h:inputText id="defense"
+                                 value="#{pokemonUpdateView.pokemonEditRequest.defense}"
+                                 styleClass="form-control"/>
+                </div>
+
+                <div class="mb-3">
+                    <h:outputLabel for="level" value="Level:" class="form-label"/>
+                    <h:inputText id="level"
+                                 value="#{pokemonUpdateView.pokemonEditRequest.level}"
+                                 styleClass="form-control"/>
+                </div>
+
+                <div class="mb-3">
+                    <ui:repeat value="#{pokemonUpdateView.speciesList}" var="species">
+                        <div class="form-check">
+                            <h:selectOneRadio id="radioId" group="species"
+                                              value="#{pokemonUpdateView.pokemonEditRequest.speciesId}"
+                                              styleClass="form-check-input"
+                                              enabledClass="form-check-label">
+                                <f:selectItem itemValue="#{species.id}" itemLabel="#{species.name}"/>
+                            </h:selectOneRadio>
+                        </div>
+                    </ui:repeat>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <h:commandButton value="Update"
+                                     styleClass="btn btn-primary"
+                                     action="#{pokemonUpdateView.saveAction()}"/>
+                    <h:commandButton value="Reset"
+                                     styleClass="btn btn-secondary"
+                                     type="reset"/>
+                    <h:commandButton value="Cancel"
+                                     styleClass="btn btn-secondary"
+                                     action="#{pokemonUpdateView.cancelAction()}"/>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

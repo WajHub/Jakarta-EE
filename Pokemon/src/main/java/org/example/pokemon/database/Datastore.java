@@ -103,4 +103,9 @@ public class Datastore {
                 .findFirst()
                 .map(cloningUtility::clone);
     }
+
+    public void updatePokemon(Pokemon entity) {
+        deletePokemon(entity);
+        createPokemon(entity);
+    }
 }

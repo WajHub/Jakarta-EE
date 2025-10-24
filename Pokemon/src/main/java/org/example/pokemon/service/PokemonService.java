@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.request.PokemonCreateRequest;
+import org.example.pokemon.dto.request.PokemonEditRequest;
 import org.example.pokemon.dto.response.PokemonResponse;
 import org.example.pokemon.dto.response.UserResponse;
 import org.example.pokemon.entity.Pokemon;
@@ -33,17 +34,26 @@ public class PokemonService {
         this.factory = factory;
     }
 
-    public void create(Pokemon pokemon) {
+    public void create(Pokemon pokemon){
         pokemonRepository.create(pokemon);
     }
 
     public void create(PokemonCreateRequest pokemonRequest) {
         pokemonRequest.setSpeciesId(pokemonRequest.getSpeciesId());
-        PokemonSpecies species = speciesRepository.find(pokemonRequest.getSpeciesId())
+        var species = speciesRepository.find(pokemonRequest.getSpeciesId())
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + pokemonRequest.getSpeciesId() + " not found"));
-        Pokemon pokemonToCreate = factory.pokemonCreateRequestToPokemon().apply(pokemonRequest);
+        var pokemonToCreate = factory.pokemonCreateRequestToPokemon().apply(pokemonRequest);
         pokemonToCreate.setSpecies(species);
-        this.create(pokemonToCreate);
+        pokemonRepository.create(pokemonToCreate);
+    }
+
+    public void update(PokemonEditRequest pokemonRequest) {
+        pokemonRequest.setSpeciesId(pokemonRequest.getSpeciesId());
+        var species = speciesRepository.find(pokemonRequest.getSpeciesId())
+                .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + pokemonRequest.getSpeciesId() + " not found"));
+        var pokemonToUpdate = factory.pokemonEditRequestToPokemon().apply(pokemonRequest);
+        pokemonToUpdate.setSpecies(species);
+        pokemonRepository.update(pokemonToUpdate);
     }
 
     public List<PokemonResponse> getPokemons() {
@@ -55,6 +65,11 @@ public class PokemonService {
     public PokemonResponse findById(UUID id) {
         return pokemonRepository.find(id)
                 .map(factory.pokemontoPokemonResponse())
+                .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
+    }
+
+    public Pokemon getPokemonById(UUID id) {
+        return pokemonRepository.find(id)
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
     }
 

@@ -54,6 +54,12 @@
                             </h:column>
 
                             <h:column>
+                                <h:link outcome="/pokemon/pokemon_edit.xhtml" value="Edit" styleClass="nav-link">
+                                    <f:param name="id" value="#{pokemon.id}"/>
+                                </h:link>
+                            </h:column>
+
+                            <h:column>
                                     <h:commandButton styleClass="btn" value="Delete"
                                                      action="#{speciesView.deleteAction(pokemon)}">
                                     </h:commandButton>
