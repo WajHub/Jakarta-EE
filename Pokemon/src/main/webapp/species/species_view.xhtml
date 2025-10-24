@@ -12,68 +12,54 @@
 
     <ui:define name="content">
         <article>
-            <header><h2><h:outputText value="#{speciesView.pokemonSpecies.name}"/></h2></header>
-            <div class="container">
-                <div class="col my-2">
-                    <div class="row mb-1">
-                            Increment by level up
-                    </div>
-                    <div class="row mb-1">
-                        Health:
-                        <h:outputText value="#{speciesView.pokemonSpecies.increaseHealthPerLevel}"/>
-                    </div>
-                    <div class="row mb-1">
-                        Attack:
-                        <h:outputText value="#{speciesView.pokemonSpecies.increaseAttackPerLevel}"/>
-                    </div>
-                    <div class="row mb-1">
-                        Deffense:
-                        <h:outputText value="#{speciesView.pokemonSpecies.increaseDefensePerLevel}"/>
-                    </div>
+            <header>
+                <h2><h:outputText value="#{speciesView.pokemonSpecies.name}"/></h2>
+                <p>ID: <h:outputText value="#{speciesView.pokemonSpecies.id}"/></p>
+                <p>Type: <h:outputText value="#{speciesView.pokemonSpecies.type}"/></p>
+            </header>
 
-                </div>
+            <section>
+                <h3>Growth per level</h3>
+                <p>Health: <h:outputText value="#{speciesView.pokemonSpecies.increaseHealthPerLevel}"/></p>
+                <p>Attack: <h:outputText value="#{speciesView.pokemonSpecies.increaseAttackPerLevel}"/></p>
+                <p>Defense: <h:outputText value="#{speciesView.pokemonSpecies.increaseDefensePerLevel}"/></p>
 
-                <div class="col my-3">
-                    <h3>Pokemons</h3>
-                    <h:form id="speciesForm">
-                        <h:dataTable id="pokemonTable"
-                                     value="#{speciesView.pokemonSpecies.pokemons}"
-                                     var="pokemon"
-                                     styleClass="table align-middle mb-0 bg-white"
-                                     headerClass="bg-light">
+                <h3>Evolution</h3>
+                <p>Evolves to: <h:outputText value="#{speciesView.pokemonSpecies.evolutionTargetName != null ? speciesView.pokemonSpecies.evolutionTargetName : '—'}"/></p>
+                <p>Level to evolve: <h:outputText value="#{speciesView.pokemonSpecies.levelToEvolve > 0 ? speciesView.pokemonSpecies.levelToEvolve : '—'}"/></p>
+            </section>
 
+            <section>
+                <h3>Pokemons</h3>
+                <h:form id="speciesForm">
+
+                        <h:dataTable value="#{speciesView.pokemonSpecies.pokemons}" var="pokemon" styleClass="spaced-table">
                             <h:column>
                                 <f:facet name="header">Name</f:facet>
                                 <h:outputText value="#{pokemon.name}"/>
                             </h:column>
 
                             <h:column>
-                                <h:link outcome="/pokemon/pokemon_view.xhtml" value="View" styleClass="nav-link">
-                                    <f:param name="id" value="#{pokemon.id}"/>
-                                </h:link>
+                                <f:facet name="header">Level</f:facet>
+                                <h:outputText value="#{pokemon.level}"/>
                             </h:column>
 
                             <h:column>
-                                <h:link outcome="/pokemon/pokemon_edit.xhtml" value="Edit" styleClass="nav-link">
+                                <f:facet name="header">Actions</f:facet>
+                                <h:link class="m-1"  outcome="/pokemon/pokemon_view.xhtml" value="View">
                                     <f:param name="id" value="#{pokemon.id}"/>
                                 </h:link>
-                            </h:column>
-
-                            <h:column>
-                                    <h:commandButton styleClass="btn" value="Delete"
-                                                     action="#{speciesView.deleteAction(pokemon)}">
-                                    </h:commandButton>
-
+                                <h:link class="m-1" outcome="/pokemon/pokemon_edit.xhtml" value="Edit">
+                                    <f:param name="id" value="#{pokemon.id}"/>
+                                </h:link>
+                                <h:commandButton class="m-1"  value="Delete" action="#{speciesView.deleteAction(pokemon)}"/>
                             </h:column>
                         </h:dataTable>
 
-                        <h:button styleClass="btn" outcome="/pokemon/pokemon_create.xhtml"
-                                      value="Create new pokemon"/>
-                    </h:form>
-                </div>
-            </div>
+                    <h:button outcome="/pokemon/pokemon_create.xhtml" value="Create new Pokémon"/>
+                </h:form>
+            </section>
         </article>
     </ui:define>
-
 
 </ui:composition>

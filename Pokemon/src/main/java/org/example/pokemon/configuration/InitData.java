@@ -5,10 +5,7 @@ import jakarta.enterprise.context.Initialized;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import lombok.SneakyThrows;
-import org.example.pokemon.entity.Pokemon;
-import org.example.pokemon.entity.PokemonSpecies;
-import org.example.pokemon.entity.User;
-import org.example.pokemon.entity.UserRole;
+import org.example.pokemon.entity.*;
 import org.example.pokemon.service.PokemonService;
 import org.example.pokemon.service.SpeciesService;
 import org.example.pokemon.service.UserService;
@@ -72,33 +69,59 @@ public class InitData {
         PokemonSpecies pikachuSpecies = PokemonSpecies.builder()
                 .id(UUID.fromString("965830df-f75b-40dd-8200-1cb0a1be4d38"))
                 .name("Pikachu")
-                .increaseAttackPerLevel(10)
+                .increaseAttackPerLevel(6)
                 .increaseDefensePerLevel(5)
-                .increaseHealthPerLevel(100)
+                .increaseHealthPerLevel(50)
                 .levelToEvolve(12)
                 .pokemons(new ArrayList<>())
+                .type(PokemonType.ELECTRIC)
                 .build();
 
         PokemonSpecies raichuSpecies = PokemonSpecies.builder()
                 .id(UUID.fromString("a70c86ce-bf99-4335-b2af-3d6535958973"))
                 .name("Raichu")
-                .increaseAttackPerLevel(20)
-                .increaseDefensePerLevel(10)
-                .increaseHealthPerLevel(200)
+                .increaseAttackPerLevel(8)
+                .increaseDefensePerLevel(6)
+                .increaseHealthPerLevel(60)
                 .levelToEvolve(null)
                 .pokemons(new ArrayList<>())
+                .type(PokemonType.ELECTRIC)
                 .build();
+        pikachuSpecies.setEvolutionTarget(raichuSpecies);
 
         PokemonSpecies charmanderSpecies = PokemonSpecies.builder()
                 .id(UUID.fromString("6614a2ee-96b8-4cae-ae18-61691d05834e"))
-                .name("Chahrmander")
-                .increaseAttackPerLevel(25)
-                .increaseDefensePerLevel(15)
-                .increaseHealthPerLevel(120)
+                .name("Charmander")
+                .increaseAttackPerLevel(10)
+                .increaseDefensePerLevel(3)
+                .increaseHealthPerLevel(45)
+                .levelToEvolve(16)
+                .pokemons(new ArrayList<>())
+                .type(PokemonType.FIRE)
+                .build();
+        PokemonSpecies charmeleonSpecies = PokemonSpecies.builder()
+                .id(UUID.fromString("d3f5e2b4-E29b-4c1c-9f7a-8f4e5c2b6a1f"))
+                .name("Charmeleon")
+                .increaseAttackPerLevel(12)
+                .increaseDefensePerLevel(5)
+                .increaseHealthPerLevel(55)
+                .levelToEvolve(36)
+                .pokemons(new ArrayList<>())
+                .type(PokemonType.FIRE)
+                .build();
+        charmanderSpecies.setEvolutionTarget(charmeleonSpecies);
+        PokemonSpecies charizardSpecies = PokemonSpecies.builder()
+                .id(UUID.fromString("f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d"))
+                .name("Charizard")
+                .increaseAttackPerLevel(15)
+                .increaseDefensePerLevel(8)
+                .increaseHealthPerLevel(70)
                 .levelToEvolve(null)
                 .pokemons(new ArrayList<>())
+                .type(PokemonType.FIRE)
                 .build();
-        pikachuSpecies.setEvolutionTarget(raichuSpecies);
+        charmeleonSpecies.setEvolutionTarget(charizardSpecies);
+
 
         Pokemon pokemon_huberta = Pokemon.builder()
                 .id(UUID.fromString("70c51310-63e6-464c-ba13-5a7464cd311d"))
@@ -127,6 +150,8 @@ public class InitData {
         pokemonSpeciesService.create(pikachuSpecies);
         pokemonSpeciesService.create(raichuSpecies);
         pokemonSpeciesService.create(charmanderSpecies);
+        pokemonSpeciesService.create(charmeleonSpecies);
+        pokemonSpeciesService.create(charizardSpecies);
 
         pokemonService.create(pokemon_huberta);
         pokemonService.create(pokemon_admina);

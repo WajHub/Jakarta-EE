@@ -33,4 +33,6 @@ public class PokemonSpecies  implements Serializable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Pokemon> pokemons = new ArrayList<>();
+
+    private PokemonType type;
 }

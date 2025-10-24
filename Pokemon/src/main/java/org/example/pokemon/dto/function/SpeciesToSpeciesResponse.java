@@ -27,6 +27,9 @@ public class SpeciesToSpeciesResponse implements Function<PokemonSpecies, Specie
                 .increaseAttackPerLevel(species.getIncreaseAttackPerLevel())
                 .increaseDefensePerLevel(species.getIncreaseDefensePerLevel())
                 .pokemons(pokemons)
+                .type(species.getType() != null ? species.getType().name() : null)
+                .levelToEvolve(species.getLevelToEvolve() != null ? species.getLevelToEvolve() : 0)
+                .evolutionTargetName(species.getEvolutionTarget() != null ? species.getEvolutionTarget().getName() : null)
                 .build();
     }
 }

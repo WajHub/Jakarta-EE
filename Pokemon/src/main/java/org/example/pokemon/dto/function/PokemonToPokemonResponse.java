@@ -17,7 +17,6 @@ public class PokemonToPokemonResponse  implements Function<Pokemon, PokemonRespo
                 .attack(pokemon.getAttack())
                 .defense(pokemon.getDefense())
                 .speciesName(pokemon.getSpecies().getName())
-                .ownerUsername(pokemon.getOwner().getUsername())
                 .captureDate(pokemon.getCaptureDate().toString())
                 .build();
     }

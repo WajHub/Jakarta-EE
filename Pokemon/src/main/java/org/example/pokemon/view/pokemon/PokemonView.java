@@ -2,6 +2,7 @@ package org.example.pokemon.view.pokemon;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,11 +14,13 @@ import org.example.pokemon.exception.NotFoundException;
 import org.example.pokemon.service.PokemonService;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.UUID;
 
-@RequestScoped
+@ViewScoped
 @Named
-public class PokemonView {
+public class PokemonView implements Serializable {
+    private static final long serialVersionUID = 1L;
     private PokemonService pokemonService;
 
     @Setter
