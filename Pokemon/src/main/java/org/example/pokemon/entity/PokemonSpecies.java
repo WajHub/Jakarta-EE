@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,5 +32,5 @@ public class PokemonSpecies  implements Serializable {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private List<Pokemon> pokemons;
+    private List<Pokemon> pokemons = new ArrayList<>();
 }

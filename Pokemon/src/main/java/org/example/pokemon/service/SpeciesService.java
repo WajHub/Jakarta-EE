@@ -8,7 +8,7 @@ import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.entity.PokemonSpecies;
 import org.example.pokemon.exception.NotFoundException;
-import org.example.pokemon.repository.impl.PokemonSpeciesRepository;
+import org.example.pokemon.repository.impl.SpeciesRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class SpeciesService {
 
-    private PokemonSpeciesRepository pokemonSpeciesRepository;
+    private SpeciesRepository pokemonSpeciesRepository;
     private DtoFunctionFactory factory;
 
     @Inject
-    public SpeciesService(PokemonSpeciesRepository pokemonSpeciesRepository, DtoFunctionFactory factory) {
+    public SpeciesService(SpeciesRepository pokemonSpeciesRepository, DtoFunctionFactory factory) {
         this.pokemonSpeciesRepository = pokemonSpeciesRepository;
         this.factory = factory;
     }

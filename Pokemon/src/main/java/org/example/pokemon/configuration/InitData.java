@@ -14,6 +14,7 @@ import org.example.pokemon.service.SpeciesService;
 import org.example.pokemon.service.UserService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -75,6 +76,7 @@ public class InitData {
                 .increaseDefensePerLevel(5)
                 .increaseHealthPerLevel(100)
                 .levelToEvolve(12)
+                .pokemons(new ArrayList<>())
                 .build();
 
         PokemonSpecies raichuSpecies = PokemonSpecies.builder()
@@ -84,6 +86,7 @@ public class InitData {
                 .increaseDefensePerLevel(10)
                 .increaseHealthPerLevel(200)
                 .levelToEvolve(null)
+                .pokemons(new ArrayList<>())
                 .build();
 
         PokemonSpecies charmanderSpecies = PokemonSpecies.builder()
@@ -93,6 +96,7 @@ public class InitData {
                 .increaseDefensePerLevel(15)
                 .increaseHealthPerLevel(120)
                 .levelToEvolve(null)
+                .pokemons(new ArrayList<>())
                 .build();
         pikachuSpecies.setEvolutionTarget(raichuSpecies);
 
@@ -120,15 +124,11 @@ public class InitData {
                 .captureDate(LocalDate.now())
                 .build();
 
-
-        pikachuSpecies.setPokemons(List.of(pokemon_huberta,  pokemon_admina));
-
-        pokemonService.create(pokemon_huberta);
-        pokemonService.create(pokemon_admina);
-
         pokemonSpeciesService.create(pikachuSpecies);
         pokemonSpeciesService.create(raichuSpecies);
         pokemonSpeciesService.create(charmanderSpecies);
 
+        pokemonService.create(pokemon_huberta);
+        pokemonService.create(pokemon_admina);
     }
 }

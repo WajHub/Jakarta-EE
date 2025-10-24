@@ -37,6 +37,7 @@ public class SpeciesView {
     public void init() throws IOException {
         try {
             this.pokemonSpecies = service.findById(id);
+            System.out.println("Loaded species: " + pokemonSpecies.getPokemons());
         } catch (NotFoundException e) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();

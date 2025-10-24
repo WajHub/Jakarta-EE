@@ -57,10 +57,11 @@ public class Datastore {
     }
 
     public synchronized void createPokemon(Pokemon pokemon) {
-        if (pokemons.stream().anyMatch(p -> p.getId().equals(pokemon.getId()))) {
-            throw new IllegalArgumentException("The user id \"%s\" is not unique".formatted(pokemon.getId()));
-        }
         pokemons.add(cloningUtility.clone(pokemon));
+        pokemonSpecies.stream()
+                .filter(species -> species.getId().equals(pokemon.getSpecies().getId()))
+                .findFirst()
+                .ifPresent(species -> species.getPokemons().add(cloningUtility.clone(pokemon)));
     }
 
     public List<Pokemon> findAllPokemons() {
