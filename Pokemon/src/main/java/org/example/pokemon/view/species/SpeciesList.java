@@ -30,7 +30,6 @@ public class SpeciesList {
     }
 
     public void deleteAction(SpeciesResponse species) {
-        System.out.println("TEST");
         service.delete(species.getId());
         speciesList = null;
     }

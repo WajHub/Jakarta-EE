@@ -88,7 +88,13 @@ public class Datastore {
     }
 
     public void deletePokemon(Pokemon entity) {
-        pokemons.removeIf(pokemon -> pokemon.getId().equals(entity.getId()));
+        var id = entity.getId();
+        pokemons.removeIf(p -> p.getId().equals(id));
+        removePokemonFromSpecies(id);
+    }
+
+    private void removePokemonFromSpecies(UUID pokemonId) {
+        pokemonSpecies.forEach(s -> s.getPokemons().removeIf(p -> p.getId().equals(pokemonId)));
     }
 
     public Optional<Pokemon> findPokemonById(UUID id) {

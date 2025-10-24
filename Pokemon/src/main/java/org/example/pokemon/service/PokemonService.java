@@ -61,7 +61,7 @@ public class PokemonService {
     public void delete(UUID id) {
         Pokemon pokemon = pokemonRepository.find(id)
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
-        System.out.println(pokemon);
+        System.out.println("TEST");
         pokemonRepository.delete(pokemon);
     }
 

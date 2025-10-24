@@ -2,22 +2,27 @@ package org.example.pokemon.view.species;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.pokemon.dto.response.PokemonResponse;
 import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.exception.NotFoundException;
 import org.example.pokemon.service.PokemonService;
 import org.example.pokemon.service.SpeciesService;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.UUID;
 
-@RequestScoped
+@ViewScoped
 @Named
-public class SpeciesView {
+public class SpeciesView  implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private SpeciesService service;
     private PokemonService pokemonService;
     @Setter
@@ -37,7 +42,6 @@ public class SpeciesView {
     public void init() throws IOException {
         try {
             this.pokemonSpecies = service.findById(id);
-            System.out.println("Loaded species: " + pokemonSpecies.getPokemons());
         } catch (NotFoundException e) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
@@ -46,9 +50,9 @@ public class SpeciesView {
         }
     }
 
-    public void deleteAction() {
-        System.out.println("Deleting: ");
-        // pokemonService.delete(pokemon.getId());
+    public void deleteAction(PokemonResponse pokemon) {
+        pokemonService.delete(pokemon.getId());
+        this.pokemonSpecies = service.findById(id);
     }
 
 }
