@@ -8,6 +8,7 @@ import org.example.pokemon.entity.Pokemon;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.repository.api.IPokemonRepository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,6 +34,10 @@ public class PokemonRepository implements IPokemonRepository {
         return datastore.findAllPokemons();
     }
 
+    public List<Pokemon> findAllBySpeciesId(UUID speciesId) {
+        return datastore.findAllPokemonsBySpeciesId(speciesId);
+    }
+
     @Override
     public void create(Pokemon entity) {
         datastore.createPokemon(entity);
@@ -47,4 +52,6 @@ public class PokemonRepository implements IPokemonRepository {
     public void update(Pokemon entity) {
         datastore.updatePokemon(entity);
     }
+
+
 }

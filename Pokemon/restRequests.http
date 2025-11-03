@@ -1,6 +1,42 @@
-### GET request to find all users
-GET http://localhost:9080/pokemon/api/users
+### SPECIES ---------------------------------------------
+
+### GET request to find all species
+GET http://localhost:9080/api/species/
 ###
+
+### GET request to find species
+GET http://localhost:9080/api/species/d3f5e2b4-e29b-4c1c-9f7a-8f4e5c2b6a1f
+###
+
+### DELETE request to delete species
+DELETE http://localhost:9080/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38
+###
+// ------------------------------------------------
+
+### POKEMONS ---------------------------------------------
+
+### GET request to find pokemons by species
+GET http://localhost:9080/api/species/d3f5e2b4-e29b-4c1c-9f7a-8f4e5c2b6a1f/pokemons/
+###
+
+### POST request to create pokemon
+POST http://localhost:9080/api/species/d3f5e2b4-e29b-4c1c-9f7a-8f4e5c2b6a1f/pokemons/
+Content-Type: application/json
+
+{
+  "name": "New Pokemon",
+  "health": 35,
+  "attack": 55,
+  "defense": 40,
+  "level": 5
+}
+###
+
+### DELETE request to delete pokemon
+DELETE http://localhost:9080/api/pokemons/3a47a2ca-a927-4a78-be0c-b40ad0987658
+###
+
+// ------------------------------------------------
 
 ### GET request to find user
 GET http://localhost:9080/pokemon/api/users/aaf8b3ad-f935-4e77-a01e-718f338a37ca

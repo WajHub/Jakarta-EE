@@ -70,6 +70,13 @@ public class Datastore {
                 .toList();
     }
 
+    public List<Pokemon> findAllPokemonsBySpeciesId(UUID speciesId) {
+        return pokemons.stream()
+                .filter(pokemon -> pokemon.getSpecies().getId().equals(speciesId))
+                .map(cloningUtility::clone)
+                .toList();
+    }
+
     public List<PokemonSpecies> findAllPokemonSpecies() {
         return pokemonSpecies.stream()
                 .map(cloningUtility::clone)
@@ -109,4 +116,6 @@ public class Datastore {
         deletePokemon(entity);
         createPokemon(entity);
     }
+
+
 }

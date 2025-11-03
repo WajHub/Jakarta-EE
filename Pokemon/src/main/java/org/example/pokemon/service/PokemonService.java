@@ -47,6 +47,14 @@ public class PokemonService {
         pokemonRepository.create(pokemonToCreate);
     }
 
+    public void create(UUID speciesId, PokemonCreateRequest pokemonRequest) {
+        var species = speciesRepository.find(speciesId)
+                .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + speciesId + " not found"));
+        var pokemonToCreate = factory.pokemonCreateRequestToPokemon().apply(pokemonRequest);
+        pokemonToCreate.setSpecies(species);
+        pokemonRepository.create(pokemonToCreate);
+    }
+
     public void update(PokemonEditRequest pokemonRequest) {
         pokemonRequest.setSpeciesId(pokemonRequest.getSpeciesId());
         var species = speciesRepository.find(pokemonRequest.getSpeciesId())
@@ -58,6 +66,13 @@ public class PokemonService {
 
     public List<PokemonResponse> getPokemons() {
         return pokemonRepository.findAll()
+                .stream().map(factory.pokemontoPokemonResponse())
+                .collect(Collectors.toList());
+    }
+
+    public List<PokemonResponse> getPokemonsBySpeciesId(UUID speciesId) {
+        System.out.println( pokemonRepository.findAllBySpeciesId(speciesId));
+        return pokemonRepository.findAllBySpeciesId(speciesId)
                 .stream().map(factory.pokemontoPokemonResponse())
                 .collect(Collectors.toList());
     }
@@ -76,8 +91,8 @@ public class PokemonService {
     public void delete(UUID id) {
         Pokemon pokemon = pokemonRepository.find(id)
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
-        System.out.println("TEST");
         pokemonRepository.delete(pokemon);
     }
+
 
 }

@@ -14,12 +14,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class PokemonCreateRequest {
-    private UUID id;
+    private UUID id = UUID.randomUUID();
     private String name;
     private int health;
     private int attack;
     private int defense;
     private int level;
     private final LocalDate captureDate = LocalDate.now();
-    private UUID speciesId = UUID.randomUUID();
+    private UUID speciesId;
 }
