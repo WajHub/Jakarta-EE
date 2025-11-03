@@ -37,7 +37,7 @@ public class PokemonView implements Serializable {
     public void init() throws IOException{
         try {
             this.pokemonResponse = pokemonService.findById(id);
-        } catch (NotFoundException e) {
+        } catch (IllegalArgumentException e) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Pokemon not found");
