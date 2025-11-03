@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="id" value="#{pokemonView.id}" required="true"/>
+        <f:viewAction action="#{pokemonView.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <article>
+            <header><h2><h:outputText value="#{pokemonView.pokemonResponse.name}"/></h2></header>
+            <div class="container">
+                <div class="col my-2">
+                    <div class="row mb-1">
+                        Attack:
+                        <h:outputText value="#{pokemonView.pokemonResponse.attack}"/>
+                    </div>
+                    <div class="row mb-1">
+                        Attack:
+                        <h:outputText value="#{pokemonView.pokemonResponse.defense}"/>
+                    </div>
+                    <div class="row mb-1">
+                        Health:
+                        <h:outputText value="#{pokemonView.pokemonResponse.health}"/>
+                    </div>
+                    <div class="row mb-1">
+                        Level:
+                        <h:outputText value="#{pokemonView.pokemonResponse.level}"/>
+                    </div>
+                    <div class="row mb-1">
+                        Captured At:
+                        <h:outputText value="#{pokemonView.pokemonResponse.captureDate}"/>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </ui:define>
+
+
+</ui:composition>

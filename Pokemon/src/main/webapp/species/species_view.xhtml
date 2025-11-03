@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{speciesView.id}" required="true"/>
+        <f:viewAction action="#{speciesView.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <article>
+            <header>
+                <h2><h:outputText value="#{speciesView.pokemonSpecies.name}"/></h2>
+                <p>ID: <h:outputText value="#{speciesView.pokemonSpecies.id}"/></p>
+                <p>Type: <h:outputText value="#{speciesView.pokemonSpecies.type}"/></p>
+            </header>
+
+            <section>
+                <h3>Growth per level</h3>
+                <p>Health: <h:outputText value="#{speciesView.pokemonSpecies.increaseHealthPerLevel}"/></p>
+                <p>Attack: <h:outputText value="#{speciesView.pokemonSpecies.increaseAttackPerLevel}"/></p>
+                <p>Defense: <h:outputText value="#{speciesView.pokemonSpecies.increaseDefensePerLevel}"/></p>
+
+                <h3>Evolution</h3>
+                <p>Evolves to: <h:outputText value="#{speciesView.pokemonSpecies.evolutionTargetName != null ? speciesView.pokemonSpecies.evolutionTargetName : '—'}"/></p>
+                <p>Level to evolve: <h:outputText value="#{speciesView.pokemonSpecies.levelToEvolve > 0 ? speciesView.pokemonSpecies.levelToEvolve : '—'}"/></p>
+            </section>
+
+            <section>
+                <h3>Pokemons</h3>
+                <h:form id="speciesForm">
+
+                        <h:dataTable value="#{speciesView.pokemonSpecies.pokemons}" var="pokemon" styleClass="spaced-table">
+                            <h:column>
+                                <f:facet name="header">Name</f:facet>
+                                <h:outputText value="#{pokemon.name}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Level</f:facet>
+                                <h:outputText value="#{pokemon.level}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Actions</f:facet>
+                                <h:link class="m-1"  outcome="/pokemon/pokemon_view.xhtml" value="View">
+                                    <f:param name="id" value="#{pokemon.id}"/>
+                                </h:link>
+                                <h:link class="m-1" outcome="/pokemon/pokemon_edit.xhtml" value="Edit">
+                                    <f:param name="id" value="#{pokemon.id}"/>
+                                </h:link>
+                                <h:commandButton class="m-1"  value="Delete" action="#{speciesView.deleteAction(pokemon)}"/>
+                            </h:column>
+                        </h:dataTable>
+
+                    <h:button outcome="/pokemon/pokemon_create.xhtml" value="Create new Pokémon"/>
+                </h:form>
+            </section>
+        </article>
+    </ui:define>
+
+</ui:composition>

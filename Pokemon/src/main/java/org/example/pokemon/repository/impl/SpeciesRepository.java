@@ -5,8 +5,7 @@ import jakarta.inject.Inject;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.database.Datastore;
 import org.example.pokemon.entity.PokemonSpecies;
-import org.example.pokemon.entity.User;
-import org.example.pokemon.repository.api.IPokemonSpeciesRepository;
+import org.example.pokemon.repository.api.ISpeciesRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,24 +13,24 @@ import java.util.UUID;
 
 @ApplicationScoped
 @NoArgsConstructor
-public class PokemonSpeciesRepository implements IPokemonSpeciesRepository {
+public class SpeciesRepository implements ISpeciesRepository {
 
     private Datastore datastore;
 
     @Inject
-    public PokemonSpeciesRepository(Datastore datastore) {
+    public SpeciesRepository(Datastore datastore) {
         this.datastore = datastore;
     }
 
 
     @Override
     public Optional<PokemonSpecies> find(UUID id) {
-        return Optional.empty();
+        return datastore.findPokemonSpeciesById(id);
     }
 
     @Override
     public List<PokemonSpecies> findAll() {
-        return List.of();
+        return datastore.findAllPokemonSpecies();
     }
 
     @Override
@@ -41,7 +40,7 @@ public class PokemonSpeciesRepository implements IPokemonSpeciesRepository {
 
     @Override
     public void delete(PokemonSpecies entity) {
-
+        datastore.deletePokemonSpecies(entity);
     }
 
     @Override

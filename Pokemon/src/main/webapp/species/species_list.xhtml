@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <ui:define name="content">
+        <h:outputStylesheet library="pokemon" name="css/pokemon_list.css"/>
+        <article>
+
+            <header><h2>Pokemon Species</h2></header>
+
+            <h:form id="speciesForm">
+                <h:dataTable id="pokemonSpeciesTable" value="#{speciesList.speciesList}" var="pokemon"
+                             styleClass="table align-middle mb-0 bg-white" headerClass="bg-light">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{pokemon.name}"/>
+                    </h:column>
+
+                    <h:column>
+                        <h:link outcome="/species/species_view.xhtml" value="View" styleClass="nav-link">
+                            <f:param name="id" value="#{pokemon.id}"/>
+                        </h:link>
+                    </h:column>
+
+                    <h:column>
+                        <h:commandButton styleClass="btn" value="Delete"
+                                         action="#{speciesList.deleteAction(pokemon)}">
+                        </h:commandButton>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+
+        </article>
+    </ui:define>
+
+</ui:composition>

@@ -8,10 +8,7 @@ import org.example.pokemon.entity.PokemonSpecies;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.utils.CloningUtility;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @ApplicationScoped
 @NoArgsConstructor(force = true)
@@ -60,10 +57,11 @@ public class Datastore {
     }
 
     public synchronized void createPokemon(Pokemon pokemon) {
-        if (pokemons.stream().anyMatch(p -> p.getId().equals(pokemon.getId()))) {
-            throw new IllegalArgumentException("The user id \"%s\" is not unique".formatted(pokemon.getId()));
-        }
         pokemons.add(cloningUtility.clone(pokemon));
+        pokemonSpecies.stream()
+                .filter(species -> species.getId().equals(pokemon.getSpecies().getId()))
+                .findFirst()
+                .ifPresent(species -> species.getPokemons().add(cloningUtility.clone(pokemon)));
     }
 
     public List<Pokemon> findAllPokemons() {
@@ -72,4 +70,43 @@ public class Datastore {
                 .toList();
     }
 
+    public List<PokemonSpecies> findAllPokemonSpecies() {
+        return pokemonSpecies.stream()
+                .map(cloningUtility::clone)
+                .toList();
+    }
+
+    public Optional<PokemonSpecies> findPokemonSpeciesById(UUID id) {
+        return pokemonSpecies.stream()
+                .filter(species -> species.getId().equals(id))
+                .findFirst()
+                .map(cloningUtility::clone);
+    }
+
+    public void deletePokemonSpecies(PokemonSpecies entity) {
+        pokemons.removeIf(p -> p.getSpecies().getId().equals(entity.getId()));
+        pokemonSpecies.removeIf(species -> species.getId().equals(entity.getId()));
+    }
+
+    public void deletePokemon(Pokemon entity) {
+        var id = entity.getId();
+        pokemons.removeIf(p -> p.getId().equals(id));
+        removePokemonFromSpecies(id);
+    }
+
+    private void removePokemonFromSpecies(UUID pokemonId) {
+        pokemonSpecies.forEach(s -> s.getPokemons().removeIf(p -> p.getId().equals(pokemonId)));
+    }
+
+    public Optional<Pokemon> findPokemonById(UUID id) {
+        return pokemons.stream()
+                .filter(pokemon -> pokemon.getId().equals(id))
+                .findFirst()
+                .map(cloningUtility::clone);
+    }
+
+    public void updatePokemon(Pokemon entity) {
+        deletePokemon(entity);
+        createPokemon(entity);
+    }
 }
