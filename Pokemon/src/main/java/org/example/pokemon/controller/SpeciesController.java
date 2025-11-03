@@ -39,6 +39,7 @@ public class SpeciesController {
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     public void createSpecies(PokemonSpecies pokemonSpecies) {
+        pokemonSpecies.setId(UUID.randomUUID());
         speciesService.create(pokemonSpecies);
     }
 

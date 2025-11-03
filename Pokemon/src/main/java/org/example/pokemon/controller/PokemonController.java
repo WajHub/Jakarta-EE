@@ -39,7 +39,16 @@ public class PokemonController {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     public void createPokemon(@PathParam("speciesId") UUID speciesId, PokemonCreateRequest pokemonRequest) {
+        pokemonRequest.setId(UUID.randomUUID());
         pokemonService.create(speciesId, pokemonRequest);
+    }
+
+    @PATCH
+    @Path("/{pokemonId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updatePokemon(@PathParam("pokemonId") UUID pokemonId, PokemonCreateRequest pokemonRequest) {
+        // TODO: implement update logic
+        return;
     }
 
     @DELETE
