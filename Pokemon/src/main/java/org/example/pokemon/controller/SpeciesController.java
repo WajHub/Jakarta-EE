@@ -3,6 +3,7 @@ package org.example.pokemon.controller;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import org.example.pokemon.dto.request.SpeciesEditRequest;
 import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.entity.Pokemon;
 import org.example.pokemon.entity.PokemonSpecies;
@@ -46,7 +47,7 @@ public class SpeciesController {
     @PATCH
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void updateSpecies(@PathParam("id") UUID id, PokemonSpecies pokemonSpecies)
+    public void updateSpecies(@PathParam("id") UUID id, SpeciesEditRequest pokemonSpecies)
     {
         speciesService.update(id, pokemonSpecies);
     }

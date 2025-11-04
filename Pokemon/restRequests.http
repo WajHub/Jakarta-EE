@@ -23,7 +23,9 @@ PATCH http://localhost:9080/api/species/6614a2ee-96b8-4cae-ae18-61691d05834e
 Content-Type: application/json
 
 {
-  "name": "Updated Species Name"
+  "name": "Updated Species Name",
+  "type": "NORMAL",
+  "increaseAttackPerLevel": 12
 }
 
 ### DELETE request to delete species

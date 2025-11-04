@@ -1,4 +1,4 @@
-package org.example.pokemon;
+package org.example.pokemon.configuration;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
