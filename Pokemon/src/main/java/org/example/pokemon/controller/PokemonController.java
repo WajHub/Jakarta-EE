@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.pokemon.dto.request.PokemonCreateRequest;
+import org.example.pokemon.dto.request.PokemonEditRequest;
 import org.example.pokemon.dto.response.PokemonResponse;
 import org.example.pokemon.entity.Pokemon;
 import org.example.pokemon.service.PokemonService;
@@ -46,9 +47,8 @@ public class PokemonController {
     @PATCH
     @Path("/{pokemonId}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void updatePokemon(@PathParam("pokemonId") UUID pokemonId, PokemonCreateRequest pokemonRequest) {
-        // TODO: implement update logic
-        return;
+    public void updatePokemon(@PathParam("speciesId") UUID speciesId, @PathParam("pokemonId") UUID pokemonId, PokemonEditRequest pokemonRequest) {
+        pokemonService.update(speciesId, pokemonId, pokemonRequest);
     }
 
     @DELETE

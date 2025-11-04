@@ -64,6 +64,15 @@ public class PokemonService {
         pokemonRepository.update(pokemonToUpdate);
     }
 
+    public void update(UUID speciesId, UUID pokemonId, PokemonEditRequest pokemonRequest) {
+        pokemonRequest.setId(pokemonId);
+        var species = speciesRepository.find(speciesId)
+                .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + pokemonRequest.getSpeciesId() + " not found"));
+        var pokemonToUpdate = factory.pokemonEditRequestToPokemon().apply(pokemonRequest);
+        pokemonToUpdate.setSpecies(species);
+        pokemonRepository.update(pokemonToUpdate);
+    }
+
     public List<PokemonResponse> getPokemons() {
         return pokemonRepository.findAll()
                 .stream().map(factory.pokemontoPokemonResponse())
@@ -93,6 +102,5 @@ public class PokemonService {
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
         pokemonRepository.delete(pokemon);
     }
-
 
 }

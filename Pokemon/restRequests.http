@@ -37,6 +37,10 @@ DELETE http://localhost:9080/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38
 GET http://localhost:9080/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/
 ###
 
+### GET request to find pokemons by species
+GET http://localhost:9080/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/70c51310-63e6-464c-ba13-5a7464cd311d
+###
+
 ### POST request to create pokemon
 POST http://localhost:9080/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/
 Content-Type: application/json
@@ -50,8 +54,20 @@ Content-Type: application/json
 }
 ###
 
+### PATCH request to update pokemon
+PATCH http://localhost:9080/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/70939f1c-fe5b-497c-968d-907b68d92bf6
+Content-Type: application/json
+
+{
+  "name": "New Pokemon2",
+  "health": 35,
+  "attack": 55,
+  "defense": 40,
+  "level": 5
+}
+
 ### DELETE request to delete pokemon
-DELETE http://localhost:9080/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/edd4788e-560f-4607-beeb-5a60b025dcd3
+DELETE http://localhost:9080/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/70939f1c-fe5b-497c-968d-907b68d92bf6
 ###
 
 // ------------------------------------------------
