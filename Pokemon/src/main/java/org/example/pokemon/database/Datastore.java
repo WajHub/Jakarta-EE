@@ -27,7 +27,7 @@ public class Datastore {
         this.cloningUtility = cloningUtility;
     }
 
-
+    // USER ----------------------------
     public synchronized void createUser(User user) {
         if (users.stream().anyMatch(character -> character.getId().equals(user.getId()))) {
             throw new IllegalArgumentException("The user id \"%s\" is not unique".formatted(user.getId()));
@@ -48,26 +48,14 @@ public class Datastore {
                 .map(cloningUtility::clone)
                 .orElse(null);
     }
+    // ---------------------------------
 
+    // SPECIES ----------------------------
     public synchronized void createPokemonSpecies(PokemonSpecies pSpecies) {
         if (pokemonSpecies.stream().anyMatch(pokemon -> pokemon.getId().equals(pSpecies.getId()))) {
             throw new IllegalArgumentException("The user id \"%s\" is not unique".formatted(pSpecies.getId()));
         }
         pokemonSpecies.add(cloningUtility.clone(pSpecies));
-    }
-
-    public synchronized void createPokemon(Pokemon pokemon) {
-        pokemons.add(cloningUtility.clone(pokemon));
-        pokemonSpecies.stream()
-                .filter(species -> species.getId().equals(pokemon.getSpecies().getId()))
-                .findFirst()
-                .ifPresent(species -> species.getPokemons().add(cloningUtility.clone(pokemon)));
-    }
-
-    public List<Pokemon> findAllPokemons() {
-        return pokemons.stream()
-                .map(cloningUtility::clone)
-                .toList();
     }
 
     public List<Pokemon> findAllPokemonsBySpeciesId(UUID speciesId) {
@@ -95,14 +83,36 @@ public class Datastore {
         pokemonSpecies.removeIf(species -> species.getId().equals(entity.getId()));
     }
 
+    public void updateSpecies(PokemonSpecies entity) {
+        PokemonSpecies pSpecies = cloneSpeciesWithPokemons(entity);
+        if(pokemonSpecies.removeIf(species -> species.getId().equals(entity.getId()))) {
+            pokemonSpecies.add(pSpecies);
+        } else {
+            throw new IllegalArgumentException("The species with id \"%s\" does not exist".formatted(entity.getId()));
+        }
+    }
+    // ---------------------------------
+
+
+    // POKEMON ----------------------------
+    public synchronized void createPokemon(Pokemon pokemon) {
+        pokemons.add(cloningUtility.clone(pokemon));
+        pokemonSpecies.stream()
+                .filter(species -> species.getId().equals(pokemon.getSpecies().getId()))
+                .findFirst()
+                .ifPresent(species -> species.getPokemons().add(cloningUtility.clone(pokemon)));
+    }
+
+    public List<Pokemon> findAllPokemons() {
+        return pokemons.stream()
+                .map(cloningUtility::clone)
+                .toList();
+    }
+
     public void deletePokemon(Pokemon entity) {
         var id = entity.getId();
         pokemons.removeIf(p -> p.getId().equals(id));
         removePokemonFromSpecies(id);
-    }
-
-    private void removePokemonFromSpecies(UUID pokemonId) {
-        pokemonSpecies.forEach(s -> s.getPokemons().removeIf(p -> p.getId().equals(pokemonId)));
     }
 
     public Optional<Pokemon> findPokemonById(UUID id) {
@@ -115,6 +125,21 @@ public class Datastore {
     public void updatePokemon(Pokemon entity) {
         deletePokemon(entity);
         createPokemon(entity);
+    }
+    // ---------------------------------
+
+    private void removePokemonFromSpecies(UUID pokemonId) {
+        pokemonSpecies.forEach(s -> s.getPokemons().removeIf(p -> p.getId().equals(pokemonId)));
+    }
+
+    private PokemonSpecies cloneSpeciesWithPokemons(PokemonSpecies species) {
+        PokemonSpecies entity = cloningUtility.clone(species);
+        List<Pokemon> clonedPokemons = pokemons.stream()
+                .filter(pokemon -> pokemon.getSpecies().getId().equals(species.getId()))
+                .map(cloningUtility::clone)
+                .toList();
+        entity.setPokemons(clonedPokemons);
+        return entity;
     }
 
 

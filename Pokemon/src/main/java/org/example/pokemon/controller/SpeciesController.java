@@ -48,8 +48,7 @@ public class SpeciesController {
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateSpecies(@PathParam("id") UUID id, PokemonSpecies pokemonSpecies)
     {
-        // TODO: implement update logic
-        return;
+        speciesService.update(id, pokemonSpecies);
     }
 
     @DELETE

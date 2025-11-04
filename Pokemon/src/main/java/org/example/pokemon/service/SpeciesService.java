@@ -32,6 +32,20 @@ public class SpeciesService {
         pokemonSpeciesRepository.create(pSpecies);
     }
 
+    public void update(UUID id, PokemonSpecies pSpecies) {
+        pokemonSpeciesRepository.find(id).ifPresent(pokemonSpecies -> {
+            if(pSpecies.getName() == null) pSpecies.setName(pokemonSpecies.getName());
+            if(pSpecies.getType() == null) pSpecies.setType(pokemonSpecies.getType());
+            if(pSpecies.getEvolutionTarget() == null) pSpecies.setEvolutionTarget(pokemonSpecies.getEvolutionTarget());
+            if(pSpecies.getPokemons() == null) pSpecies.setPokemons(pokemonSpecies.getPokemons());
+            if(pSpecies.getIncreaseAttackPerLevel()== 0) pSpecies.setIncreaseAttackPerLevel(pokemonSpecies.getIncreaseAttackPerLevel());
+            if(pSpecies.getIncreaseDefensePerLevel() == 0) pSpecies.setIncreaseDefensePerLevel(pokemonSpecies.getIncreaseDefensePerLevel());
+            if(pSpecies.getIncreaseHealthPerLevel() == 0) pSpecies.setIncreaseHealthPerLevel(pokemonSpecies.getIncreaseHealthPerLevel());
+            pSpecies.setId(pokemonSpecies.getId());
+        });
+        pokemonSpeciesRepository.update(pSpecies);
+    }
+
     public List<SpeciesResponse> findAll() {
         return pokemonSpeciesRepository.findAll()
                 .stream()

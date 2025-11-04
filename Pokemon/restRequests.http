@@ -5,17 +5,26 @@ GET http://localhost:9080/api/species/
 ###
 
 ### GET request to find species
-GET http://localhost:9080/api/species/d3f5e2b4-e29b-4c1c-9f7a-8f4e5c2b6a1f
+GET http://localhost:9080/api/species/6614a2ee-96b8-4cae-ae18-61691d05834e
 ###
 
 ### POST request to create species
 POST http://localhost:9080/api/species/
 Content-Type: application/json
+
 {
   "name": "New Species",
-  "type": "Water",
+  "type": "NORMAL"
 }
 ###
+
+### PATCH request to update species
+PATCH http://localhost:9080/api/species/6614a2ee-96b8-4cae-ae18-61691d05834e
+Content-Type: application/json
+
+{
+  "name": "Updated Species Name"
+}
 
 ### DELETE request to delete species
 DELETE http://localhost:9080/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38
