@@ -3,12 +3,12 @@ package org.example.pokemon.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.request.SpeciesEditRequest;
 import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.entity.PokemonSpecies;
-import org.example.pokemon.exception.NotFoundException;
 import org.example.pokemon.repository.impl.SpeciesRepository;
 
 import java.util.List;
