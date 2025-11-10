@@ -4,8 +4,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.NoArgsConstructor;
-import org.example.pokemon.entity.PokemonSpecies;
-import org.example.pokemon.repository.api.ISpeciesRepository;
+import org.example.pokemon.entity.User;
+import org.example.pokemon.repository.api.IUserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,33 +13,38 @@ import java.util.UUID;
 
 @ApplicationScoped
 @NoArgsConstructor
-public class SpeciesH2Repository implements ISpeciesRepository  {
+public class UserH2Repository  implements IUserRepository {
 
     @PersistenceContext(name = "pokemonsPu")
     private EntityManager em;
 
     @Override
-    public Optional<PokemonSpecies> find(UUID id) {
-        return Optional.ofNullable(em.find(PokemonSpecies.class, id));
+    public Optional<User> findByUsername(String username) {
+        return Optional.empty();
     }
 
     @Override
-    public List<PokemonSpecies> findAll() {
+    public Optional<User> find(UUID id) {
+        return Optional.ofNullable(em.find(User.class, id));
+    }
+
+    @Override
+    public List<User> findAll() {
         return List.of();
     }
 
     @Override
-    public void create(PokemonSpecies entity) {
+    public void create(User entity) {
         em.persist(entity);
     }
 
     @Override
-    public void delete(PokemonSpecies entity) {
+    public void delete(User entity) {
 
     }
 
     @Override
-    public void update(PokemonSpecies entity) {
+    public void update(User entity) {
 
     }
 }

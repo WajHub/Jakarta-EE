@@ -36,7 +36,8 @@ public class SpeciesService {
     @Transactional
     public void create(PokemonSpecies pSpecies) {
 //        pokemonSpeciesRepository.create(pSpecies);
-        speciesH2Repository.create(pSpecies);
+        if(speciesH2Repository.find(pSpecies.getId()).isEmpty())
+            speciesH2Repository.create(pSpecies);
     }
 
     public void update(UUID id, SpeciesEditRequest pSpecies) {

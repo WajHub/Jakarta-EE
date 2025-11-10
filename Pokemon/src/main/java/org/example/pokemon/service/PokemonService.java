@@ -45,7 +45,8 @@ public class PokemonService {
     @Transactional
     public void create(Pokemon pokemon){
 //        pokemonRepository.create(pokemon);
-        pokemonH2Repository.create(pokemon);
+        if(pokemonH2Repository.find(pokemon.getId()).isEmpty())
+            pokemonH2Repository.create(pokemon);
     }
 
     public void create(PokemonCreateRequest pokemonRequest) {

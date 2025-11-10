@@ -20,7 +20,7 @@ public class PokemonH2Repository implements IPokemonRepository  {
 
     @Override
     public Optional<Pokemon> find(UUID id) {
-        return Optional.of(em.find(Pokemon.class, id));
+        return Optional.ofNullable(em.find(Pokemon.class, id));
     }
 
     @Override

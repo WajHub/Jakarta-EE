@@ -64,7 +64,7 @@ public class InitData {
                 .roles(List.of(UserRole.USER))
                 .build();
         List<User>initUsers = List.of(admin, hubert, test, user);
-        initUsers.forEach(u -> userService.create(u));
+//        initUsers.forEach(u -> userService.create(u));
 
         PokemonSpecies pikachuSpecies = PokemonSpecies.builder()
                 .id(UUID.fromString("965830df-f75b-40dd-8200-1cb0a1be4d38"))
@@ -153,7 +153,7 @@ public class InitData {
         pokemonSpeciesService.create(charmeleonSpecies);
         pokemonSpeciesService.create(charizardSpecies);
 
-//        pokemonService.create(pokemon_huberta);
-//        pokemonService.create(pokemon_admina);
+        pokemonService.create(pokemon_huberta);
+        pokemonService.create(pokemon_admina);
     }
 }
