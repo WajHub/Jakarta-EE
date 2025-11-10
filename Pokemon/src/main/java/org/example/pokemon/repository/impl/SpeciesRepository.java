@@ -45,6 +45,7 @@ public class SpeciesRepository implements ISpeciesRepository {
 
     @Override
     public void update(PokemonSpecies entity) {
-
+        datastore.updateSpecies(entity);
     }
+
 }

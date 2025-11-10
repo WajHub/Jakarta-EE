@@ -18,4 +18,6 @@ public class DtoFunctionFactory {
 
     public PokemonToPokemonEditRequest  pokemonToPokemonEditRequest() {return new PokemonToPokemonEditRequest();}
     public PokemonEditRequestToPokemon  pokemonEditRequestToPokemon() {return new PokemonEditRequestToPokemon();}
+
+    public UpdatePokemonSpecies updatePokemonSpecies() {return new UpdatePokemonSpecies();}
 }

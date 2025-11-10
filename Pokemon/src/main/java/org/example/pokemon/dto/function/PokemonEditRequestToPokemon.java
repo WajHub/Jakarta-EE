@@ -3,6 +3,7 @@ package org.example.pokemon.dto.function;
 import org.example.pokemon.dto.request.PokemonEditRequest;
 import org.example.pokemon.entity.Pokemon;
 
+import java.time.LocalDate;
 import java.util.function.Function;
 
 public class PokemonEditRequestToPokemon implements Function<PokemonEditRequest, Pokemon> {
@@ -15,7 +16,7 @@ public class PokemonEditRequestToPokemon implements Function<PokemonEditRequest,
                 .attack(pokemonEditRequest.getAttack())
                 .defense(pokemonEditRequest.getDefense())
                 .level(pokemonEditRequest.getLevel())
-                .captureDate(pokemonEditRequest.getCaptureDate())
+                .captureDate(pokemonEditRequest.getCaptureDate() == null ? LocalDate.now() : pokemonEditRequest.getCaptureDate())
                 .build();
     }
 }

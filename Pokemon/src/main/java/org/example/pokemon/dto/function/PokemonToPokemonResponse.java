@@ -12,6 +12,7 @@ public class PokemonToPokemonResponse  implements Function<Pokemon, PokemonRespo
     @Override
     public PokemonResponse apply(Pokemon pokemon) {
         return PokemonResponse.builder()
+                .id(pokemon.getId())
                 .name(pokemon.getName())
                 .health(pokemon.getHealth())
                 .attack(pokemon.getAttack())
