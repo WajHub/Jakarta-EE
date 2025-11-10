@@ -3,12 +3,14 @@ package org.example.pokemon.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.request.SpeciesEditRequest;
 import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.entity.PokemonSpecies;
+import org.example.pokemon.repository.impl.SpeciesH2Repository;
 import org.example.pokemon.repository.impl.SpeciesRepository;
 
 import java.util.List;
@@ -21,16 +23,20 @@ import java.util.stream.Collectors;
 public class SpeciesService {
 
     private SpeciesRepository pokemonSpeciesRepository;
+    private SpeciesH2Repository speciesH2Repository;
     private DtoFunctionFactory factory;
 
     @Inject
-    public SpeciesService(SpeciesRepository pokemonSpeciesRepository, DtoFunctionFactory factory) {
+    public SpeciesService(SpeciesRepository pokemonSpeciesRepository, SpeciesH2Repository speciesH2Repository, DtoFunctionFactory factory) {
         this.pokemonSpeciesRepository = pokemonSpeciesRepository;
+        this.speciesH2Repository = speciesH2Repository;
         this.factory = factory;
     }
 
+    @Transactional
     public void create(PokemonSpecies pSpecies) {
-        pokemonSpeciesRepository.create(pSpecies);
+//        pokemonSpeciesRepository.create(pSpecies);
+        speciesH2Repository.create(pSpecies);
     }
 
     public void update(UUID id, SpeciesEditRequest pSpecies) {

@@ -131,7 +131,7 @@ public class InitData {
                 .health(200)
                 .attack(12)
                 .defense(14)
-                .owner(hubert)
+                .owner(null)
                 .captureDate(LocalDate.now())
                 .build();
 
@@ -143,7 +143,7 @@ public class InitData {
                 .health(200)
                 .attack(12)
                 .defense(14)
-                .owner(admin)
+                .owner(null)
                 .captureDate(LocalDate.now())
                 .build();
 
@@ -153,7 +153,7 @@ public class InitData {
         pokemonSpeciesService.create(charmeleonSpecies);
         pokemonSpeciesService.create(charizardSpecies);
 
-        pokemonService.create(pokemon_huberta);
-        pokemonService.create(pokemon_admina);
+//        pokemonService.create(pokemon_huberta);
+//        pokemonService.create(pokemon_admina);
     }
 }

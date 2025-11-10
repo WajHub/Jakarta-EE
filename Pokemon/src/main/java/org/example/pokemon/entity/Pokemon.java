@@ -1,5 +1,6 @@
 package org.example.pokemon.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -14,10 +15,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Entity
+@Table(name = "pokemons")
 public class Pokemon implements Serializable {
+
+    @Id
+    private UUID id;
     private static final long serialVersionUID = 1L;
 
-    private UUID id;
     private String name;
     private int level;
 
@@ -27,6 +32,11 @@ public class Pokemon implements Serializable {
 
     private LocalDate captureDate;
 
+    @ManyToOne
+    @JoinColumn(name = "species_id")
     private PokemonSpecies species;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_username")
     private User owner;
 }

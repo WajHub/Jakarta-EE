@@ -3,6 +3,7 @@ package org.example.pokemon.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
@@ -12,7 +13,9 @@ import org.example.pokemon.dto.response.PokemonResponse;
 import org.example.pokemon.dto.response.UserResponse;
 import org.example.pokemon.entity.Pokemon;
 import org.example.pokemon.entity.PokemonSpecies;
+import org.example.pokemon.repository.impl.PokemonH2Repository;
 import org.example.pokemon.repository.impl.PokemonRepository;
+import org.example.pokemon.repository.impl.SpeciesH2Repository;
 import org.example.pokemon.repository.impl.SpeciesRepository;
 
 import java.time.LocalDate;
@@ -26,17 +29,23 @@ public class PokemonService {
 
     private PokemonRepository pokemonRepository;
     private SpeciesRepository speciesRepository;
+    private PokemonH2Repository pokemonH2Repository;
+    private SpeciesH2Repository speciesH2Repository;
     private DtoFunctionFactory factory;
 
     @Inject
-    public PokemonService(PokemonRepository pokemonRepository, SpeciesRepository speciesRepository,  DtoFunctionFactory factory) {
+    public PokemonService(PokemonH2Repository pokemonH2Repository, SpeciesH2Repository speciesH2Repository, PokemonRepository pokemonRepository, SpeciesRepository speciesRepository,  DtoFunctionFactory factory) {
+        this.pokemonH2Repository = pokemonH2Repository;
+        this.speciesH2Repository = speciesH2Repository;
         this.pokemonRepository = pokemonRepository;
         this.speciesRepository = speciesRepository;
         this.factory = factory;
     }
 
+    @Transactional
     public void create(Pokemon pokemon){
-        pokemonRepository.create(pokemon);
+//        pokemonRepository.create(pokemon);
+        pokemonH2Repository.create(pokemon);
     }
 
     public void create(PokemonCreateRequest pokemonRequest) {
