@@ -36,7 +36,7 @@ DELETE http://localhost:9080/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38
 ### POKEMONS ---------------------------------------------
 
 ### GET request to find pokemons by species
-GET http://localhost:9080/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/
+GET http://localhost:9080/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/
 ###
 
 ### GET request to find pokemons by species

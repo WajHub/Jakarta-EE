@@ -31,7 +31,7 @@ public class PokemonSpecies  implements Serializable {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "evolution_target_id")
     private PokemonSpecies evolutionTarget;
 
@@ -39,7 +39,7 @@ public class PokemonSpecies  implements Serializable {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "species")
+    @OneToMany(mappedBy = "species", fetch = FetchType.LAZY, cascade = CascadeType.ALL,  orphanRemoval = true)
     private List<Pokemon> pokemons = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)

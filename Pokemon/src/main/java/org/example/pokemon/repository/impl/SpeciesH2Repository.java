@@ -25,7 +25,7 @@ public class SpeciesH2Repository implements ISpeciesRepository  {
 
     @Override
     public List<PokemonSpecies> findAll() {
-        return List.of();
+        return em.createQuery("SELECT s FROM PokemonSpecies s", PokemonSpecies.class).getResultList();
     }
 
     @Override
@@ -35,11 +35,20 @@ public class SpeciesH2Repository implements ISpeciesRepository  {
 
     @Override
     public void delete(PokemonSpecies entity) {
-
+        if (entity == null || entity.getId() == null) {
+            return;
+        }
+        PokemonSpecies managed = em.find(PokemonSpecies.class, entity.getId());
+        if (managed != null) {
+            em.remove(managed);
+        }
     }
 
     @Override
     public void update(PokemonSpecies entity) {
-
+        if (entity == null) {
+            return;
+        }
+        em.merge(entity);
     }
 }

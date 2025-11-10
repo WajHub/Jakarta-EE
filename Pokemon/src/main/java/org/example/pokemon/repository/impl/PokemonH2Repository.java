@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.example.pokemon.entity.Pokemon;
 import org.example.pokemon.repository.api.IPokemonRepository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,5 +42,11 @@ public class PokemonH2Repository implements IPokemonRepository  {
     @Override
     public void update(Pokemon entity) {
         em.merge(entity);
+    }
+
+    public List<Pokemon> findAllBySpeciesId(UUID speciesId) {
+        return em.createQuery("select p from Pokemon p where p.species.id = :speciesId", Pokemon.class)
+                .setParameter("speciesId", speciesId)
+                .getResultList();
     }
 }
