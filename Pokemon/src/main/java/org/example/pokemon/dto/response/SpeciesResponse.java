@@ -18,7 +18,6 @@ public class SpeciesResponse {
     private int increaseHealthPerLevel;
     private int increaseAttackPerLevel;
     private int increaseDefensePerLevel;
-    private List<PokemonResponse> pokemons;
     private String type;
     private String evolutionTargetName;
     private int levelToEvolve;

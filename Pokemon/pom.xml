@@ -52,6 +52,12 @@
             <version>6.4.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.2.220</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -65,6 +71,14 @@
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.7.1</version>
+                <configuration>
+                    <copyDependencies>
+                        <dependency>
+                            <groupId>com.h2database</groupId>
+                            <artifactId>h2</artifactId>
+                        </dependency>
+                    </copyDependencies>
+                </configuration>
             </plugin>
         </plugins>
     </build>

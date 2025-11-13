@@ -1,5 +1,6 @@
 package org.example.pokemon.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -15,9 +16,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Entity
+@Table(name = "pokemon_species")
 public class PokemonSpecies  implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
     private UUID id;
     private String name;
 
@@ -27,12 +31,17 @@ public class PokemonSpecies  implements Serializable {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "evolution_target_id")
     private PokemonSpecies evolutionTarget;
+
     private Integer levelToEvolve;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @OneToMany(mappedBy = "species", fetch = FetchType.LAZY, cascade = CascadeType.ALL,  orphanRemoval = true)
     private List<Pokemon> pokemons = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     private PokemonType type;
 }

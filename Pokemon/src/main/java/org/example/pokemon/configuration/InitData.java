@@ -64,7 +64,7 @@ public class InitData {
                 .roles(List.of(UserRole.USER))
                 .build();
         List<User>initUsers = List.of(admin, hubert, test, user);
-        initUsers.forEach(u -> userService.create(u));
+//        initUsers.forEach(u -> userService.create(u));
 
         PokemonSpecies pikachuSpecies = PokemonSpecies.builder()
                 .id(UUID.fromString("965830df-f75b-40dd-8200-1cb0a1be4d38"))
@@ -131,7 +131,7 @@ public class InitData {
                 .health(200)
                 .attack(12)
                 .defense(14)
-                .owner(hubert)
+                .owner(null)
                 .captureDate(LocalDate.now())
                 .build();
 
@@ -143,7 +143,7 @@ public class InitData {
                 .health(200)
                 .attack(12)
                 .defense(14)
-                .owner(admin)
+                .owner(null)
                 .captureDate(LocalDate.now())
                 .build();
 

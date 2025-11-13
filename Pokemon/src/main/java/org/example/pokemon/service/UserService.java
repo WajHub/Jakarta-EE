@@ -2,6 +2,7 @@ package org.example.pokemon.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
@@ -9,6 +10,7 @@ import org.example.pokemon.dto.response.UserResponse;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.exception.HttpRequestException;
 import org.example.pokemon.exception.NotFoundException;
+import org.example.pokemon.repository.impl.UserH2Repository;
 import org.example.pokemon.repository.impl.UserRepository;
 import org.example.pokemon.utils.AvatarUtility;
 
@@ -24,15 +26,21 @@ public class UserService {
 
     private DtoFunctionFactory factory;
     private UserRepository userRepository;
+    private UserH2Repository userH2Repository;
 
     @Inject
-    public UserService(UserRepository userRepository, DtoFunctionFactory factory) {
+    public UserService(UserRepository userRepository, UserH2Repository userH2Repository, DtoFunctionFactory factory) {
         this.factory = factory;
         this.userRepository = userRepository;
+        this.userH2Repository = userH2Repository;
     }
 
+    @Transactional
     public void create(User user) {
-        userRepository.create(user);
+//        userRepository.create(user);
+        if(userH2Repository.find(user.getId()).isEmpty()) {
+            userH2Repository.create(user);
+        }
     }
 
     public List<UserResponse> getUsers() {

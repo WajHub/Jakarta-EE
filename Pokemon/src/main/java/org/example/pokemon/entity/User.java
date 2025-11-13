@@ -1,5 +1,8 @@
 package org.example.pokemon.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -14,9 +17,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Entity
+@Table(name = "users")
 public class User  implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
     private UUID id;
     private String username;
     private String email;
