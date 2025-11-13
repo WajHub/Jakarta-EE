@@ -37,6 +37,7 @@ public class SpeciesService {
             speciesH2Repository.create(pSpecies);
     }
 
+    @Transactional
     public void update(UUID id, SpeciesEditRequest pSpecies) {
         speciesH2Repository.find(id).ifPresent(entity -> {
             var updatedSpecies = factory.updatePokemonSpecies().apply(entity, pSpecies);
@@ -59,6 +60,7 @@ public class SpeciesService {
                 .orElseThrow(() -> new NotFoundException("Pokemon species not found"));
     }
 
+    @Transactional
     public void delete(UUID id) {
         speciesH2Repository.delete(
                 speciesH2Repository

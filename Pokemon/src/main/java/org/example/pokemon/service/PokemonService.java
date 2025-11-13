@@ -46,6 +46,7 @@ public class PokemonService {
         pokemonH2Repository.create(pokemonToCreate);
     }
 
+    @Transactional
     public void create(UUID speciesId, PokemonCreateRequest pokemonRequest) {
         var species = speciesH2Repository.find(speciesId)
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + speciesId + " not found"));
@@ -63,6 +64,7 @@ public class PokemonService {
         pokemonH2Repository.update(pokemonToUpdate);
     }
 
+    @Transactional
     public void update(UUID speciesId, UUID pokemonId, PokemonEditRequest pokemonRequest) {
         pokemonRequest.setId(pokemonId);
         var species = speciesH2Repository.find(speciesId)
@@ -96,6 +98,7 @@ public class PokemonService {
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
     }
 
+    @Transactional
     public void delete(UUID id) {
         Pokemon pokemon = pokemonH2Repository.find(id)
                 .orElseThrow(() -> new NotFoundException("Pokemon with id " + id + " not found"));
