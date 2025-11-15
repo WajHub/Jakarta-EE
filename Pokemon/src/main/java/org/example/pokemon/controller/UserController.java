@@ -1,11 +1,10 @@
 package org.example.pokemon.controller;
 
-import jakarta.inject.Inject;
+import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.pokemon.dto.request.UserCreateRequest;
 import org.example.pokemon.dto.response.UserResponse;
-import org.example.pokemon.entity.User;
 import org.example.pokemon.service.UserService;
 
 import java.util.List;
@@ -15,12 +14,8 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserController {
 
+    @EJB
     private UserService userService;
-
-    @Inject
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GET
     @Path("")

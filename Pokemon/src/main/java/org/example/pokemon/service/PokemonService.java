@@ -1,5 +1,7 @@
 package org.example.pokemon.service;
 
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -16,7 +18,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
+@LocalBean
+@Stateless
 @NoArgsConstructor
 public class PokemonService {
 
@@ -31,7 +34,7 @@ public class PokemonService {
         this.factory = factory;
     }
 
-    @Transactional
+
     public void create(Pokemon pokemon){
         if(pokemonH2Repository.find(pokemon.getId()).isEmpty())
             pokemonH2Repository.create(pokemon);
@@ -46,7 +49,7 @@ public class PokemonService {
         pokemonH2Repository.create(pokemonToCreate);
     }
 
-    @Transactional
+
     public void create(UUID speciesId, PokemonCreateRequest pokemonRequest) {
         var species = speciesH2Repository.find(speciesId)
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + speciesId + " not found"));
@@ -64,7 +67,7 @@ public class PokemonService {
         pokemonH2Repository.update(pokemonToUpdate);
     }
 
-    @Transactional
+
     public void update(UUID speciesId, UUID pokemonId, PokemonEditRequest pokemonRequest) {
         pokemonRequest.setId(pokemonId);
         var species = speciesH2Repository.find(speciesId)
@@ -98,7 +101,7 @@ public class PokemonService {
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
     }
 
-    @Transactional
+
     public void delete(UUID id) {
         Pokemon pokemon = pokemonH2Repository.find(id)
                 .orElseThrow(() -> new NotFoundException("Pokemon with id " + id + " not found"));

@@ -1,6 +1,8 @@
 package org.example.pokemon.service;
 
 
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -18,7 +20,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
+@LocalBean
+@Stateless
 @NoArgsConstructor
 public class SpeciesService {
 
@@ -31,13 +34,13 @@ public class SpeciesService {
         this.factory = factory;
     }
 
-    @Transactional
+
     public void create(PokemonSpecies pSpecies) {
         if(speciesH2Repository.find(pSpecies.getId()).isEmpty())
             speciesH2Repository.create(pSpecies);
     }
 
-    @Transactional
+
     public void update(UUID id, SpeciesEditRequest pSpecies) {
         speciesH2Repository.find(id).ifPresent(entity -> {
             var updatedSpecies = factory.updatePokemonSpecies().apply(entity, pSpecies);
@@ -60,7 +63,7 @@ public class SpeciesService {
                 .orElseThrow(() -> new NotFoundException("Pokemon species not found"));
     }
 
-    @Transactional
+
     public void delete(UUID id) {
         speciesH2Repository.delete(
                 speciesH2Repository

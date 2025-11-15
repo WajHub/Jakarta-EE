@@ -1,11 +1,10 @@
 package org.example.pokemon.controller;
 
-import jakarta.inject.Inject;
+import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.pokemon.dto.request.SpeciesEditRequest;
 import org.example.pokemon.dto.response.SpeciesResponse;
-import org.example.pokemon.entity.Pokemon;
 import org.example.pokemon.entity.PokemonSpecies;
 import org.example.pokemon.service.SpeciesService;
 
@@ -15,12 +14,8 @@ import java.util.UUID;
 @Path("/species")
 public class SpeciesController {
 
-    private final SpeciesService speciesService;
-
-    @Inject
-    public SpeciesController(SpeciesService speciesService) {
-        this.speciesService = speciesService;
-    }
+    @EJB
+    private SpeciesService speciesService;
 
     @GET
     @Path("")
@@ -47,8 +42,7 @@ public class SpeciesController {
     @PATCH
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void updateSpecies(@PathParam("id") UUID id, SpeciesEditRequest pokemonSpecies)
-    {
+    public void updateSpecies(@PathParam("id") UUID id, SpeciesEditRequest pokemonSpecies) {
         speciesService.update(id, pokemonSpecies);
     }
 
@@ -57,5 +51,4 @@ public class SpeciesController {
     public void deleteSpecies(@PathParam("id") UUID id) {
         speciesService.delete(id);
     }
-
 }

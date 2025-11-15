@@ -1,5 +1,7 @@
 package org.example.pokemon.service;
 
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -22,7 +24,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
+@LocalBean
+@Stateless
 @NoArgsConstructor
 public class UserService {
 
@@ -39,7 +42,6 @@ public class UserService {
         this.passwordHash = passwordHash;
     }
 
-    @Transactional
     public void create(User user) {
         if(userH2Repository.find(user.getId()).isEmpty()) {
             user.setPassword(passwordHash.generate(user.getPassword().toCharArray()));
@@ -47,7 +49,6 @@ public class UserService {
         }
     }
 
-    @Transactional
     public void create(UserCreateRequest user) {
         if(userH2Repository.findByUsername(user.getUsername()).isEmpty()) {
             user.setPassword(passwordHash.generate(user.getPassword().toCharArray()));

@@ -1,9 +1,14 @@
 package org.example.pokemon.configuration;
 
+import jakarta.ejb.Singleton;
+import jakarta.ejb.Startup;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Initialized;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.pokemon.entity.*;
 import org.example.pokemon.service.PokemonService;
@@ -15,7 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@ApplicationScoped
+@Singleton
+@Startup
+@TransactionAttribute(value = TransactionAttributeType.NOT_SUPPORTED)
+@NoArgsConstructor
 public class InitData {
 
     private UserService userService;
