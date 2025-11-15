@@ -30,7 +30,7 @@ public class UserH2Repository  implements IUserRepository {
 
     @Override
     public List<User> findAll() {
-        return List.of();
+        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
     @Override

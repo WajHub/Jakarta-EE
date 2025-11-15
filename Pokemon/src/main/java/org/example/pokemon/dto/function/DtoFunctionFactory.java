@@ -2,6 +2,7 @@ package org.example.pokemon.dto.function;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.example.pokemon.dto.request.PokemonCreateRequest;
+import org.example.pokemon.dto.request.UserCreateRequest;
 import org.example.pokemon.entity.Pokemon;
 
 import java.util.function.Function;
@@ -20,4 +21,6 @@ public class DtoFunctionFactory {
     public PokemonEditRequestToPokemon  pokemonEditRequestToPokemon() {return new PokemonEditRequestToPokemon();}
 
     public UpdatePokemonSpecies updatePokemonSpecies() {return new UpdatePokemonSpecies();}
+
+    public UserCreateRequestToUser userCreateRequestToUser() {return new UserCreateRequestToUser(); }
 }

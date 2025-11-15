@@ -74,6 +74,26 @@ DELETE http://localhost:9080/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/po
 
 // ------------------------------------------------
 
+
+### USERS ---------------------------------------------
+
+### POST request to create user
+POST http://localhost:9080/api/users/register
+Content-Type: application/json
+
+{
+  "username": "newuser",
+  "email": "test@gmail.com",
+  "password": "password123"
+}
+###
+
+### GET request to find all users
+GET http://localhost:9080/api/users/
+###
+
+
+
 ### GET request to find user
 GET http://localhost:9080/pokemon/api/users/aaf8b3ad-f935-4e77-a01e-718f338a37ca
 ###
