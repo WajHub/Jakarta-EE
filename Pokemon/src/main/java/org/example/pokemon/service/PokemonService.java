@@ -16,9 +16,12 @@ import org.example.pokemon.dto.request.PokemonEditRequest;
 import org.example.pokemon.dto.response.PokemonResponse;
 import org.example.pokemon.entity.Pokemon;
 import org.example.pokemon.entity.PokemonSpecies;
+import org.example.pokemon.entity.User;
 import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.repository.impl.PokemonH2Repository;
 import org.example.pokemon.repository.impl.SpeciesH2Repository;
+import org.example.pokemon.repository.impl.UserH2Repository;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,14 +34,16 @@ public class PokemonService {
 
     private PokemonH2Repository pokemonH2Repository;
     private SpeciesH2Repository speciesH2Repository;
+    private UserH2Repository userH2Repository;
     private DtoFunctionFactory factory;
     private SecurityContext securityContext;
 
     @Inject
-    public PokemonService(PokemonH2Repository pokemonH2Repository, SpeciesH2Repository speciesH2Repository, DtoFunctionFactory factory,
+    public PokemonService(PokemonH2Repository pokemonH2Repository, SpeciesH2Repository speciesH2Repository, UserH2Repository userH2Repository ,DtoFunctionFactory factory,
                           SecurityContext securityContext) {
         this.pokemonH2Repository = pokemonH2Repository;
         this.speciesH2Repository = speciesH2Repository;
+        this.userH2Repository = userH2Repository;
         this.factory = factory;
         this.securityContext = securityContext;
     }
@@ -64,10 +69,16 @@ public class PokemonService {
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + speciesId + " not found"));
         var pokemonToCreate = factory.pokemonCreateRequestToPokemon().apply(pokemonRequest);
         pokemonToCreate.setSpecies(species);
+
+        User user = userH2Repository.findByUsername(securityContext.getCallerPrincipal().getName())
+                .orElseThrow(IllegalStateException::new);
+
+        pokemonToCreate.setOwner(user);
         pokemonH2Repository.create(pokemonToCreate);
     }
 
     public void update(PokemonEditRequest pokemonRequest) {
+        checkAdminRoleOrOwner(pokemonH2Repository.find(pokemonRequest.getId()));
         pokemonRequest.setSpeciesId(pokemonRequest.getSpeciesId());
         var species = speciesH2Repository.find(pokemonRequest.getSpeciesId())
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + pokemonRequest.getSpeciesId() + " not found"));
@@ -77,6 +88,7 @@ public class PokemonService {
     }
 
     public void update(UUID speciesId, UUID pokemonId, PokemonEditRequest pokemonRequest) {
+        checkAdminRoleOrOwner(pokemonH2Repository.find(pokemonId));
         pokemonRequest.setId(pokemonId);
         var species = speciesH2Repository.find(speciesId)
                 .orElseThrow(() -> new NotFoundException("Pokemon species with id " + pokemonRequest.getSpeciesId() + " not found"));
@@ -108,6 +120,7 @@ public class PokemonService {
     }
 
     public PokemonResponse findById(UUID id) {
+        checkAdminRoleOrOwner(pokemonH2Repository.find(id));
         return pokemonH2Repository.find(id)
                 .map(factory.pokemontoPokemonResponse())
                 .orElseThrow(() -> new NotFoundException("Pokemon with id " + id + " not found"));
@@ -120,6 +133,7 @@ public class PokemonService {
 
 
     public void delete(UUID id) {
+        checkAdminRoleOrOwner(pokemonH2Repository.find(id));
         Pokemon pokemon = pokemonH2Repository.find(id)
                 .orElseThrow(() -> new NotFoundException("Pokemon with id " + id + " not found"));
         pokemonH2Repository.delete(pokemon);

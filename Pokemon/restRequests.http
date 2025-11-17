@@ -1,6 +1,7 @@
 ### SPECIES ---------------------------------------------
 
 user: dXNlcjpwYXNzd29yZF91c2Vy
+newuser: bmV3dXNlcjpwYXNzd29yZDEyMw==
 admin: YWRtaW46cGFzc3dvcmRfYWRtaW4=
 
 ### GET request to find all species
@@ -53,7 +54,7 @@ Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
 ### GET request to find pokemons by species
 // @no-cookie-jar
 GET http://localhost:9080/pokemon/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/
-Authorization: Basic dXNlcjpwYXNzd29yZF91c2Vy
+Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
 ###
 
 ### GET request to find pokemons by species
@@ -65,6 +66,7 @@ GET http://localhost:9080/pokemon/api/species/965830df-f75b-40dd-8200-1cb0a1be4d
 // @no-cookie-jar
 POST http://localhost:9080/pokemon/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/
 Content-Type: application/json
+Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
 
 {
   "name": "New Pokemon",
@@ -112,6 +114,9 @@ Content-Type: application/json
 ### GET request to find all users
 GET http://localhost:9080/pokemon/api/users/
 ###
+
+
+
 
 
 
