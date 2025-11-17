@@ -1,6 +1,7 @@
 package org.example.pokemon.service;
 
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -12,6 +13,7 @@ import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.request.SpeciesEditRequest;
 import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.entity.PokemonSpecies;
+import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.repository.impl.SpeciesH2Repository;
 import org.example.pokemon.repository.impl.SpeciesRepository;
 

@@ -1,9 +1,11 @@
 package org.example.pokemon.service;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
@@ -16,7 +18,6 @@ import org.example.pokemon.exception.NotFoundException;
 import org.example.pokemon.repository.impl.UserH2Repository;
 import org.example.pokemon.repository.impl.UserRepository;
 import org.example.pokemon.utils.AvatarUtility;
-import org.example.pokemon.utils.Pbkdf2PasswordHash;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,6 +43,7 @@ public class UserService {
         this.passwordHash = passwordHash;
     }
 
+    @PermitAll
     public void create(User user) {
         if(userH2Repository.find(user.getId()).isEmpty()) {
             user.setPassword(passwordHash.generate(user.getPassword().toCharArray()));
@@ -49,6 +51,7 @@ public class UserService {
         }
     }
 
+    @PermitAll
     public void create(UserCreateRequest user) {
         if(userH2Repository.findByUsername(user.getUsername()).isEmpty()) {
             user.setPassword(passwordHash.generate(user.getPassword().toCharArray()));

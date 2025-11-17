@@ -1,5 +1,7 @@
 package org.example.pokemon.configuration;
 
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.RunAs;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
 import jakarta.ejb.TransactionAttribute;
@@ -24,6 +26,8 @@ import java.util.UUID;
 @Startup
 @TransactionAttribute(value = TransactionAttributeType.NOT_SUPPORTED)
 @NoArgsConstructor
+@DeclareRoles({UserRole.ROLE_ADMIN, UserRole.ROLE_USER})
+@RunAs(UserRole.ROLE_ADMIN)
 public class InitData {
 
     private UserService userService;

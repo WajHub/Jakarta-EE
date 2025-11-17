@@ -1,10 +1,13 @@
 package org.example.pokemon.controller;
 
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.pokemon.dto.request.UserCreateRequest;
 import org.example.pokemon.dto.response.UserResponse;
+import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.service.UserService;
 
 import java.util.List;
@@ -25,6 +28,7 @@ public class UserController {
 
     @POST
     @Path("/register")
+    @PermitAll
     public void create(UserCreateRequest userCreateRequest) {
         userService.create(userCreateRequest);
     }

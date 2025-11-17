@@ -1,5 +1,6 @@
 package org.example.pokemon.service;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -12,6 +13,7 @@ import org.example.pokemon.dto.request.PokemonCreateRequest;
 import org.example.pokemon.dto.request.PokemonEditRequest;
 import org.example.pokemon.dto.response.PokemonResponse;
 import org.example.pokemon.entity.Pokemon;
+import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.repository.impl.PokemonH2Repository;
 import org.example.pokemon.repository.impl.SpeciesH2Repository;
 import java.util.List;
@@ -49,7 +51,7 @@ public class PokemonService {
         pokemonH2Repository.create(pokemonToCreate);
     }
 
-
+    @RolesAllowed(UserRole.ROLE_USER)
     public void create(UUID speciesId, PokemonCreateRequest pokemonRequest) {
         var species = speciesH2Repository.find(speciesId)
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + speciesId + " not found"));
@@ -67,7 +69,7 @@ public class PokemonService {
         pokemonH2Repository.update(pokemonToUpdate);
     }
 
-
+    @RolesAllowed(UserRole.ROLE_USER)
     public void update(UUID speciesId, UUID pokemonId, PokemonEditRequest pokemonRequest) {
         pokemonRequest.setId(pokemonId);
         var species = speciesH2Repository.find(speciesId)
@@ -83,6 +85,7 @@ public class PokemonService {
                 .collect(Collectors.toList());
     }
 
+    @RolesAllowed(UserRole.ROLE_USER)
     public List<PokemonResponse> getPokemonsBySpeciesId(UUID speciesId) {
         System.out.println(pokemonH2Repository.findAllBySpeciesId(speciesId));
         return pokemonH2Repository.findAllBySpeciesId(speciesId)
@@ -90,6 +93,7 @@ public class PokemonService {
                 .collect(Collectors.toList());
     }
 
+    @RolesAllowed(UserRole.ROLE_USER)
     public PokemonResponse findById(UUID id) {
         return pokemonH2Repository.find(id)
                 .map(factory.pokemontoPokemonResponse())
@@ -101,7 +105,7 @@ public class PokemonService {
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
     }
 
-
+    @RolesAllowed(UserRole.ROLE_USER)
     public void delete(UUID id) {
         Pokemon pokemon = pokemonH2Repository.find(id)
                 .orElseThrow(() -> new NotFoundException("Pokemon with id " + id + " not found"));

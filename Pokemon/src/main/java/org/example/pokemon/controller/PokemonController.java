@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.example.pokemon.dto.request.PokemonCreateRequest;
 import org.example.pokemon.dto.request.PokemonEditRequest;
 import org.example.pokemon.dto.response.PokemonResponse;
+import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.service.PokemonService;
 
 import java.util.List;
@@ -23,7 +24,6 @@ public class PokemonController {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-//    @RolesAllowed({"USER", "ADMIN"})
     public List<PokemonResponse> getPokemons(@PathParam("speciesId") UUID speciesId) {
         return pokemonService.getPokemonsBySpeciesId(speciesId);
     }

@@ -1,11 +1,13 @@
 package org.example.pokemon.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.pokemon.dto.request.SpeciesEditRequest;
 import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.entity.PokemonSpecies;
+import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.service.SpeciesService;
 
 import java.util.List;
