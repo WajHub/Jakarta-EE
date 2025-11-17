@@ -30,8 +30,8 @@
                     javax.sql.ConnectionPoolDataSource="org.h2.jdbcx.JdbcDataSource"
                     javax.sql.DataSource="org.h2.jdbcx.JdbcDataSource"
                     libraryRef="H2JDBCLib"/>
-<!--        <properties URL="jdbc:h2:mem:pokemons"/>-->
-        <properties URL="jdbc:h2:/tmp/pokemons;AUTO_SERVER=TRUE"/>
+        <properties URL="jdbc:h2:mem:pokemons"/>
+<!--        <properties URL="jdbc:h2:/tmp/pokemons;AUTO_SERVER=TRUE"/>-->
     </dataSource>
     <library id="H2JDBCLib">
         <fileset dir="${wlp.install.dir}/usr/servers/defaultServer/lib/global/" includes="h2-2.2.220.jar"/>

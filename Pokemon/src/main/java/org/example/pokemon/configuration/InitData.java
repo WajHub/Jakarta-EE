@@ -43,13 +43,6 @@ public class InitData {
     @SneakyThrows
     @PostConstruct
     private void init() {
-        User hubert = User.builder()
-                .id(UUID.fromString("9f1b99da-ffe8-48ab-ba14-68d0e113d5de"))
-                .username("hubert")
-                .password("password")
-                .email("hubert@gmail.com")
-                .roles(List.of(UserRole.ROLE_USER))
-                .build();
         User user = User.builder()
                 .id(UUID.fromString("5b030d40-b529-4150-a88e-094a24f08dc8"))
                 .username("user")
@@ -57,14 +50,7 @@ public class InitData {
                 .email("user@gmail.com")
                 .roles(List.of(UserRole.ROLE_USER))
                 .build();
-        User test = User.builder()
-                .id(UUID.fromString("fea12d2a-d65a-49ce-9a3e-d6d5b31e0878"))
-                .username("test")
-                .password("password_test")
-                .email("test@gmail.com")
-                .roles(List.of(UserRole.ROLE_USER))
-                .build();
-        List<User>initUsers = List.of(hubert, test, user);
+        List<User>initUsers = List.of(user);
         initUsers.forEach(u -> {
             if(userService.getUserById(u.getId()).isEmpty()) {
                 userService.create(u);
@@ -136,7 +122,7 @@ public class InitData {
                 .health(200)
                 .attack(12)
                 .defense(14)
-                .owner(hubert)
+                .owner(user)
                 .captureDate(LocalDate.now())
                 .build();
 
@@ -148,7 +134,7 @@ public class InitData {
                 .health(200)
                 .attack(12)
                 .defense(14)
-                .owner(hubert)
+                .owner(user)
                 .captureDate(LocalDate.now())
                 .build();
 

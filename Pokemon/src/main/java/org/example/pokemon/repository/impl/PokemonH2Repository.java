@@ -50,4 +50,11 @@ public class PokemonH2Repository implements IPokemonRepository  {
                 .setParameter("speciesId", speciesId)
                 .getResultList();
     }
+
+    public List<Pokemon> findAllBySpeciesIdAndUsername(UUID speciesId, String username) {
+        return em.createQuery("select p from Pokemon p where p.species.id = :speciesId", Pokemon.class)
+                .setParameter("speciesId", speciesId)
+                .getResultList();
+    }
+
 }

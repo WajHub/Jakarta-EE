@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Path("/species")
-//@RolesAllowed({UserRole.ROLE_ADMIN})
 public class SpeciesController {
 
     @EJB
@@ -23,7 +22,7 @@ public class SpeciesController {
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({UserRole.ROLE_ADMIN})
+    @RolesAllowed({UserRole.ROLE_USER, UserRole.ROLE_ADMIN})
     public List<SpeciesResponse> getSpecies() {
         return speciesService.findAll();
     }
@@ -31,6 +30,7 @@ public class SpeciesController {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({UserRole.ROLE_USER, UserRole.ROLE_ADMIN})
     public SpeciesResponse getSpeciesById(@PathParam("id") UUID id) {
         return speciesService.findById(id);
     }
@@ -38,6 +38,7 @@ public class SpeciesController {
     @POST
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({UserRole.ROLE_ADMIN})
     public void createSpecies(PokemonSpecies pokemonSpecies) {
         pokemonSpecies.setId(UUID.randomUUID());
         speciesService.create(pokemonSpecies);
@@ -46,12 +47,14 @@ public class SpeciesController {
     @PATCH
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({UserRole.ROLE_ADMIN})
     public void updateSpecies(@PathParam("id") UUID id, SpeciesEditRequest pokemonSpecies) {
         speciesService.update(id, pokemonSpecies);
     }
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({UserRole.ROLE_ADMIN})
     public void deleteSpecies(@PathParam("id") UUID id) {
         speciesService.delete(id);
     }
