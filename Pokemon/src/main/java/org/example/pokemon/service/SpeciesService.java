@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @LocalBean
 @Stateless
 @NoArgsConstructor
+//@RolesAllowed({UserRole.ROLE_ADMIN})
 public class SpeciesService {
 
     private SpeciesH2Repository speciesH2Repository;

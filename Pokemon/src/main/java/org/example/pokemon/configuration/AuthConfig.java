@@ -9,8 +9,8 @@ import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 @BasicAuthenticationMechanismDefinition(realmName = "Pokemon")
 @DatabaseIdentityStoreDefinition(
         dataSourceLookup = "jdbc/pokemons",
-        callerQuery = "select password from users where login = ?",
-        groupsQuery = "select role from users__roles where id = (select id from users where login = ?)",
+        callerQuery = "select password from users where username = ?",
+        groupsQuery = "select role from users__roles where id = (select id from users where username = ?)",
         hashAlgorithm = Pbkdf2PasswordHash.class
 )
 public class AuthConfig {

@@ -1,8 +1,6 @@
 package org.example.pokemon.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -28,6 +26,9 @@ public class User  implements Serializable {
     private String email;
     @ToString.Exclude
     private String password;
-    private List<UserRole> roles;
+    @CollectionTable(name = "users__roles", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles;
 
 }

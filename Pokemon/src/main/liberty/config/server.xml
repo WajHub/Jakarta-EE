@@ -12,34 +12,26 @@
         <feature>appSecurity-5.0</feature>
     </featureManager>
 
-    <webApplication id="pokemon" location="Pokemon-1.0-SNAPSHOT.war" contextRoot="/">
+    <application id="pokemon" location="Pokemon-1.0-SNAPSHOT.war">
         <application-bnd>
             <security-role name="admin">
                 <group name="admin" access-id="group:jdbc/pokemons/admin"/>
-                <run-as userid="admin-service"/>
+                <run-as userid="admin"/>
+                <group name="admin"/>
             </security-role>
             <security-role name="user">
                 <group name="user" access-id="group:jdbc/pokemons/user"/>
             </security-role>
         </application-bnd>
-    </webApplication>
-
-    <basicRegistry>
-        <user name="admin" password="adminadmin">
-            <group name="admin"/>
-        </user>
-        <user name="user" password="useruser">
-            <group name="user"/>
-        </user>
-    </basicRegistry>
+    </application>
 
     <dataSource id="PokemonDataSource" jndiName="jdbc/pokemons">
         <jdbcDriver javax.sql.XADataSource="org.h2.jdbcx.JdbcDataSource"
                     javax.sql.ConnectionPoolDataSource="org.h2.jdbcx.JdbcDataSource"
                     javax.sql.DataSource="org.h2.jdbcx.JdbcDataSource"
                     libraryRef="H2JDBCLib"/>
-        <properties URL="jdbc:h2:mem:pokemons"/>
-<!--        <properties URL="jdbc:h2:/tmp/pokemons;AUTO_SERVER=TRUE"/>-->
+<!--        <properties URL="jdbc:h2:mem:pokemons"/>-->
+        <properties URL="jdbc:h2:/tmp/pokemons;AUTO_SERVER=TRUE"/>
     </dataSource>
     <library id="H2JDBCLib">
         <fileset dir="${wlp.install.dir}/usr/servers/defaultServer/lib/global/" includes="h2-2.2.220.jar"/>

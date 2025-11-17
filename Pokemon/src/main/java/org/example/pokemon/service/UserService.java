@@ -22,6 +22,7 @@ import org.example.pokemon.utils.AvatarUtility;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -57,7 +58,7 @@ public class UserService {
             user.setPassword(passwordHash.generate(user.getPassword().toCharArray()));
             User newUser = factory.userCreateRequestToUser().apply(user);
             newUser.setId(UUID.randomUUID());
-            newUser.setRoles(List.of(UserRole.USER));
+            newUser.setRoles(List.of(UserRole.ROLE_USER));
             userH2Repository.create(newUser);
         }
     }
@@ -66,6 +67,11 @@ public class UserService {
         return userH2Repository.findAll()
                 .stream().map(factory.usertoUserResponse())
                 .collect(Collectors.toList());
+    }
+
+    public Optional<UserResponse> getUserById(UUID id) {
+        return  userRepository.find(id)
+                .map(factory.usertoUserResponse());
     }
 
     public UserResponse getUser(UUID uuid) {
@@ -134,5 +140,12 @@ public class UserService {
             }, () ->  {
                 throw new NotFoundException("User not found!");
             });
+    }
+
+    @PermitAll
+    public boolean verify(String username, String password) {
+        return userRepository.findByUsername(username)
+                .map(user -> passwordHash.verify(password.toCharArray(), user.getPassword()))
+                .orElse(false);
     }
 }

@@ -69,7 +69,7 @@ public class PokemonService {
         pokemonH2Repository.update(pokemonToUpdate);
     }
 
-    @RolesAllowed(UserRole.ROLE_USER)
+//    @RolesAllowed(UserRole.ROLE_USER)
     public void update(UUID speciesId, UUID pokemonId, PokemonEditRequest pokemonRequest) {
         pokemonRequest.setId(pokemonId);
         var species = speciesH2Repository.find(speciesId)
@@ -85,7 +85,7 @@ public class PokemonService {
                 .collect(Collectors.toList());
     }
 
-    @RolesAllowed(UserRole.ROLE_USER)
+//    @RolesAllowed(UserRole.ROLE_USER)
     public List<PokemonResponse> getPokemonsBySpeciesId(UUID speciesId) {
         System.out.println(pokemonH2Repository.findAllBySpeciesId(speciesId));
         return pokemonH2Repository.findAllBySpeciesId(speciesId)
@@ -93,7 +93,7 @@ public class PokemonService {
                 .collect(Collectors.toList());
     }
 
-    @RolesAllowed(UserRole.ROLE_USER)
+//    @RolesAllowed(UserRole.ROLE_USER)
     public PokemonResponse findById(UUID id) {
         return pokemonH2Repository.find(id)
                 .map(factory.pokemontoPokemonResponse())
@@ -105,7 +105,7 @@ public class PokemonService {
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon with id " + id + " not found"));
     }
 
-    @RolesAllowed(UserRole.ROLE_USER)
+//    @RolesAllowed(UserRole.ROLE_USER)
     public void delete(UUID id) {
         Pokemon pokemon = pokemonH2Repository.find(id)
                 .orElseThrow(() -> new NotFoundException("Pokemon with id " + id + " not found"));

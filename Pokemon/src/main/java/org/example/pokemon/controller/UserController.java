@@ -22,6 +22,7 @@ public class UserController {
 
     @GET
     @Path("")
+    @PermitAll
     public List<UserResponse> getUsers() {
         return userService.getUsers();
     }

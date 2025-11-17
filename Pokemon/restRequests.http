@@ -1,7 +1,10 @@
 ### SPECIES ---------------------------------------------
 
 ### GET request to find all species
-GET http://localhost:9080/api/species/
+// @no-cookie-jar
+GET http://localhost:9080/pokemon/api/species/
+Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
+
 ###
 
 ### GET request to find species

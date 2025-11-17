@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Path("/species")
+//@RolesAllowed({UserRole.ROLE_ADMIN})
 public class SpeciesController {
 
     @EJB
@@ -22,6 +23,7 @@ public class SpeciesController {
     @GET
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({UserRole.ROLE_ADMIN})
     public List<SpeciesResponse> getSpecies() {
         return speciesService.findAll();
     }
