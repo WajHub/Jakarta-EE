@@ -36,7 +36,7 @@ public class InitAdmin {
     @SneakyThrows
     private void init() {
         if (userRepository.find(UUID.fromString("aaf8b3ad-f935-4e77-a01e-718f338a37ca")).isEmpty()) {
-            String hashedPassword = passwordHash.generate("password_admin".toCharArray());
+            String hashedPassword = passwordHash.generate("admin".toCharArray());
             User admin = User.builder()
                     .id(UUID.fromString("aaf8b3ad-f935-4e77-a01e-718f338a37ca"))
                     .username("admin")
