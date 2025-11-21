@@ -1,6 +1,7 @@
 package org.example.pokemon.repository.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@ApplicationScoped
 @NoArgsConstructor
+@Dependent
 public class PokemonH2Repository implements IPokemonRepository  {
 
     @PersistenceContext(name = "pokemonsPu")
@@ -49,4 +50,12 @@ public class PokemonH2Repository implements IPokemonRepository  {
                 .setParameter("speciesId", speciesId)
                 .getResultList();
     }
+
+    public List<Pokemon> findAllBySpeciesIdAndUsername(UUID speciesId, String username) {
+        return em.createQuery("select p from Pokemon p where p.species.id = :speciesId and p.owner.username = :username", Pokemon.class)
+                .setParameter("speciesId", speciesId)
+                .setParameter("username", username)
+                .getResultList();
+    }
+
 }

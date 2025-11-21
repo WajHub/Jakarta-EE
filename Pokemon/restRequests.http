@@ -1,16 +1,28 @@
 ### SPECIES ---------------------------------------------
 
+user: dXNlcjpwYXNzd29yZF91c2Vy
+newuser: bmV3dXNlcjpwYXNzd29yZDEyMw==
+admin: YWRtaW46cGFzc3dvcmRfYWRtaW4=
+
 ### GET request to find all species
-GET http://localhost:9080/api/species/
+// @no-cookie-jar
+GET http://localhost:9080/pokemon/api/species/
+Authorization: Basic dXNlcjpwYXNzd29yZF91c2Vy
+
 ###
 
 ### GET request to find species
-GET http://localhost:9080/api/species/6614a2ee-96b8-4cae-ae18-61691d05834e
+// @no-cookie-jar
+GET http://localhost:9080/pokemon/api/species/6614a2ee-96b8-4cae-ae18-61691d05834e
+Authorization: Basic dXNlcjpwYXNzd29yZF91c2Vy
+
 ###
 
 ### POST request to create species
-POST http://localhost:9080/api/species/
+// @no-cookie-jar
+POST http://localhost:9080/pokemon/api/species/
 Content-Type: application/json
+Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
 
 {
   "name": "New Species",
@@ -19,8 +31,10 @@ Content-Type: application/json
 ###
 
 ### PATCH request to update species
-PATCH http://localhost:9080/api/species/6614a2ee-96b8-4cae-ae18-61691d05834e
+// @no-cookie-jar
+PATCH http://localhost:9080/pokemon/api/species/6614a2ee-96b8-4cae-ae18-61691d05834e
 Content-Type: application/json
+Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
 
 {
   "name": "Updated Species Name",
@@ -29,23 +43,31 @@ Content-Type: application/json
 }
 
 ### DELETE request to delete species
-DELETE http://localhost:9080/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38
+// @no-cookie-jar
+DELETE http://localhost:9080/pokemon/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38
+Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
 ###
 // ------------------------------------------------
 
 ### POKEMONS ---------------------------------------------
 
 ### GET request to find pokemons by species
-GET http://localhost:9080/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/
+// @no-cookie-jar
+GET http://localhost:9080/pokemon/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/
+Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
 ###
 
 ### GET request to find pokemons by species
-GET http://localhost:9080/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/70c51310-63e6-464c-ba13-5a7464cd311d
+// @no-cookie-jar
+GET http://localhost:9080/pokemon/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/70c51310-63e6-464c-ba13-5a7464cd311d
+Authorization: Basic bmV3dXNlcjpwYXNzd29yZDEyMw==
 ###
 
 ### POST request to create pokemon
-POST http://localhost:9080/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/
+// @no-cookie-jar
+POST http://localhost:9080/pokemon/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/
 Content-Type: application/json
+Authorization: Basic bmV3dXNlcjpwYXNzd29yZDEyMw==
 
 {
   "name": "New Pokemon",
@@ -57,7 +79,8 @@ Content-Type: application/json
 ###
 
 ### PATCH request to update pokemon
-PATCH http://localhost:9080/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/70939f1c-fe5b-497c-968d-907b68d92bf6
+// @no-cookie-jar
+PATCH http://localhost:9080/pokemon/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/70939f1c-fe5b-497c-968d-907b68d92bf6
 Content-Type: application/json
 
 {
@@ -69,10 +92,34 @@ Content-Type: application/json
 }
 
 ### DELETE request to delete pokemon
-DELETE http://localhost:9080/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/70939f1c-fe5b-497c-968d-907b68d92bf6
+// @no-cookie-jar
+DELETE http://localhost:9080/pokemon/api/species/f7c3e1d2-3b6a-4f8e-9c2d-1e2f3a4b5c6d/pokemons/70939f1c-fe5b-497c-968d-907b68d92bf6
 ###
 
 // ------------------------------------------------
+
+
+### USERS ---------------------------------------------
+
+### POST request to create user
+POST http://localhost:9080/pokemon/api/users/register
+Content-Type: application/json
+
+{
+  "username": "newuser",
+  "email": "test@gmail.com",
+  "password": "password123"
+}
+###
+
+### GET request to find all users
+GET http://localhost:9080/pokemon/api/users/
+###
+
+
+
+
+
 
 ### GET request to find user
 GET http://localhost:9080/pokemon/api/users/aaf8b3ad-f935-4e77-a01e-718f338a37ca

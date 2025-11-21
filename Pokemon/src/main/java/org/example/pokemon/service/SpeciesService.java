@@ -1,8 +1,13 @@
 package org.example.pokemon.service;
 
 
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ejb.EJBAccessException;
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.security.enterprise.SecurityContext;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import lombok.NoArgsConstructor;
@@ -10,6 +15,7 @@ import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.request.SpeciesEditRequest;
 import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.entity.PokemonSpecies;
+import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.repository.impl.SpeciesH2Repository;
 import org.example.pokemon.repository.impl.SpeciesRepository;
 
@@ -18,8 +24,10 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
+@LocalBean
+@Stateless
 @NoArgsConstructor
+//@RolesAllowed({UserRole.ROLE_ADMIN})
 public class SpeciesService {
 
     private SpeciesH2Repository speciesH2Repository;
@@ -31,13 +39,14 @@ public class SpeciesService {
         this.factory = factory;
     }
 
-    @Transactional
+
+    @RolesAllowed({UserRole.ROLE_ADMIN})
     public void create(PokemonSpecies pSpecies) {
         if(speciesH2Repository.find(pSpecies.getId()).isEmpty())
             speciesH2Repository.create(pSpecies);
     }
 
-    @Transactional
+
     public void update(UUID id, SpeciesEditRequest pSpecies) {
         speciesH2Repository.find(id).ifPresent(entity -> {
             var updatedSpecies = factory.updatePokemonSpecies().apply(entity, pSpecies);
@@ -60,7 +69,7 @@ public class SpeciesService {
                 .orElseThrow(() -> new NotFoundException("Pokemon species not found"));
     }
 
-    @Transactional
+
     public void delete(UUID id) {
         speciesH2Repository.delete(
                 speciesH2Repository

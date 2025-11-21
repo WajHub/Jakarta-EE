@@ -1,10 +1,16 @@
 package org.example.pokemon.configuration;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.RunAs;
+import jakarta.ejb.*;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Initialized;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.java.Log;
 import org.example.pokemon.entity.*;
 import org.example.pokemon.service.PokemonService;
 import org.example.pokemon.service.SpeciesService;
@@ -15,56 +21,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@ApplicationScoped
+@Singleton
+@Startup
+@TransactionAttribute(value = TransactionAttributeType.NOT_SUPPORTED)
+@NoArgsConstructor
+@DependsOn("InitAdmin")
+@DeclareRoles("admin")
+@RunAs("admin")
+@Log
 public class InitData {
 
+    @EJB
     private UserService userService;
+
+    @EJB
     private PokemonService pokemonService;
+
+    @EJB
     private SpeciesService pokemonSpeciesService;
 
-    @Inject
-    public InitData(UserService userService,  PokemonService pokemonService, SpeciesService pokemonSpeciesService) {
-        this.userService = userService;
-        this.pokemonService = pokemonService;
-        this.pokemonSpeciesService = pokemonSpeciesService;
-    }
-
-    public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
-        init();
-    }
-
     @SneakyThrows
+    @PostConstruct
     private void init() {
-        User admin = User.builder()
-                .id(UUID.fromString("aaf8b3ad-f935-4e77-a01e-718f338a37ca"))
-                .username("admin")
-                .password("password_admin")
-                .email("admin@gmail.com")
-                .roles(List.of(UserRole.ADMIN, UserRole.USER))
-                .build();
-        User hubert = User.builder()
-                .id(UUID.fromString("9f1b99da-ffe8-48ab-ba14-68d0e113d5de"))
-                .username("hubert")
-                .password("password")
-                .email("hubert@gmail.com")
-                .roles(List.of(UserRole.USER))
-                .build();
         User user = User.builder()
                 .id(UUID.fromString("5b030d40-b529-4150-a88e-094a24f08dc8"))
                 .username("user")
                 .password("password_user")
                 .email("user@gmail.com")
-                .roles(List.of(UserRole.USER))
+                .roles(List.of(UserRole.ROLE_USER))
                 .build();
-        User test = User.builder()
-                .id(UUID.fromString("fea12d2a-d65a-49ce-9a3e-d6d5b31e0878"))
-                .username("test")
-                .password("password_test")
-                .email("test@gmail.com")
-                .roles(List.of(UserRole.USER))
-                .build();
-        List<User>initUsers = List.of(admin, hubert, test, user);
-//        initUsers.forEach(u -> userService.create(u));
+        List<User>initUsers = List.of(user);
+        initUsers.forEach(u -> {
+            if(userService.getUserById(u.getId()).isEmpty()) {
+                userService.create(u);
+            }
+        });
 
         PokemonSpecies pikachuSpecies = PokemonSpecies.builder()
                 .id(UUID.fromString("965830df-f75b-40dd-8200-1cb0a1be4d38"))
@@ -131,7 +122,7 @@ public class InitData {
                 .health(200)
                 .attack(12)
                 .defense(14)
-                .owner(null)
+                .owner(user)
                 .captureDate(LocalDate.now())
                 .build();
 
@@ -143,7 +134,7 @@ public class InitData {
                 .health(200)
                 .attack(12)
                 .defense(14)
-                .owner(null)
+                .owner(user)
                 .captureDate(LocalDate.now())
                 .build();
 

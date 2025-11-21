@@ -1,6 +1,7 @@
 package org.example.pokemon.repository.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@ApplicationScoped
+
 @NoArgsConstructor
+@Dependent
 public class UserH2Repository  implements IUserRepository {
 
     @PersistenceContext(name = "pokemonsPu")
@@ -20,7 +22,10 @@ public class UserH2Repository  implements IUserRepository {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        return Optional.empty();
+        return em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                .setParameter("username", username)
+                .getResultStream()
+                .findFirst();
     }
 
     @Override
@@ -30,7 +35,7 @@ public class UserH2Repository  implements IUserRepository {
 
     @Override
     public List<User> findAll() {
-        return List.of();
+        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
     @Override

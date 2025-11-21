@@ -8,8 +8,22 @@
         <feature>faces-4.0</feature>
         <feature>restfulWS-3.1</feature>
         <feature>persistence-3.1</feature>
+        <feature>enterpriseBeans-4.0</feature>
+        <feature>appSecurity-5.0</feature>
     </featureManager>
-    <webApplication id="pokemon" location="Pokemon-1.0-SNAPSHOT.war" contextRoot="/"/>
+
+    <application id="pokemon" location="Pokemon-1.0-SNAPSHOT.war">
+        <application-bnd>
+            <security-role name="admin">
+                <group name="admin" access-id="group:jdbc/pokemons/admin"/>
+                <run-as userid="admin"/>
+                <group name="admin"/>
+            </security-role>
+            <security-role name="user">
+                <group name="user" access-id="group:jdbc/pokemons/user"/>
+            </security-role>
+        </application-bnd>
+    </application>
 
     <dataSource id="PokemonDataSource" jndiName="jdbc/pokemons">
         <jdbcDriver javax.sql.XADataSource="org.h2.jdbcx.JdbcDataSource"

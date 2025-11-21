@@ -1,6 +1,7 @@
 package org.example.pokemon.repository.impl;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@ApplicationScoped
 @NoArgsConstructor
+@Dependent
 public class SpeciesH2Repository implements ISpeciesRepository  {
 
     @PersistenceContext(name = "pokemonsPu")
