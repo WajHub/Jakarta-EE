@@ -58,7 +58,14 @@ public class InitData {
                 .email("user@gmail.com")
                 .roles(List.of(UserRole.ROLE_USER))
                 .build();
-        List<User>initUsers = List.of(user,admin);
+        User user2 = User.builder()
+                .id(UUID.fromString("5b030d40-b539-4150-a88e-094a24f08dc8"))
+                .username("use2r")
+                .password("user2")
+                .email("user2@gmail.com")
+                .roles(List.of(UserRole.ROLE_USER))
+                .build();
+        List<User>initUsers = List.of(user,admin,user2);
         initUsers.forEach(u -> {
             if(userService.getUserById(u.getId()).isEmpty()) {
                 userService.create(u);
@@ -154,7 +161,7 @@ public class InitData {
                 .health(200)
                 .attack(12)
                 .defense(14)
-                .owner(user)
+                .owner(admin)
                 .captureDate(LocalDate.now())
                 .build();
 

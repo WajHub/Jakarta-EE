@@ -38,20 +38,20 @@
 
                         </li>
                         <li class="nav-item">
-                            <h:link styleClass="nav-link" outcome="/index.xhtml">Home</h:link>
+                            <h:link styleClass="nav-link" outcome="/index.xhtml">#{msg['home']}</h:link>
                         </li>
                         <li class="nav-item">
                             <h:link styleClass="nav-link"
-                                    outcome="/species/species_list.xhtml">Pokemon Species</h:link>
+                                    outcome="/species/species_list.xhtml">#{msg['species']}</h:link>
                         </li>
                         <li class="nav-item">
                             <h:link styleClass="nav-link"
-                                    outcome="/pokemon/pokemon_list.xhtml">Pokemons</h:link>
+                                    outcome="/pokemon/pokemon_list.xhtml">#{msg['pokemons']}</h:link>
                         </li>
                         <li class="nav-item">
                             <h:form styleClass="container d-flex  align-items-center justify-content-end"
                                     rendered="#{facesContext.externalContext.userPrincipal != null}">
-                                Logged: <h:outputText value="#{facesContext.externalContext.userPrincipal.name}"/>
+                                #{msg['logged']}: <h:outputText value="#{facesContext.externalContext.userPrincipal.name}"/>
                                 <h:commandButton styleClass="btn btn-link" value="Logout"
                                                  action="#{userLogout.logoutAction()}"/>
                             </h:form>
