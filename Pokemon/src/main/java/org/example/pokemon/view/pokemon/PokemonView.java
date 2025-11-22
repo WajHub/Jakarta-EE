@@ -1,16 +1,17 @@
 package org.example.pokemon.view.pokemon;
 
+import jakarta.ejb.EJBException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.NotFoundException;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.pokemon.dto.response.PokemonResponse;
 import org.example.pokemon.dto.response.SpeciesResponse;
-import org.example.pokemon.exception.NotFoundException;
 import org.example.pokemon.service.PokemonService;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class PokemonView implements Serializable {
     public void init() throws IOException{
         try {
             this.pokemonResponse = pokemonService.findById(id);
-        } catch (IllegalArgumentException e) {
+        } catch (EJBException e) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Pokemon not found");

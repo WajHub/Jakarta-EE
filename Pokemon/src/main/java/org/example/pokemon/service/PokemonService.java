@@ -123,7 +123,7 @@ public class PokemonService {
         checkAdminRoleOrOwner(pokemonH2Repository.find(id));
         return pokemonH2Repository.find(id)
                 .map(factory.pokemontoPokemonResponse())
-                .orElseThrow(() -> new NotFoundException("Pokemon with id " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Pokemon FIUT with id " + id + " not found"));
     }
 
     public Pokemon getPokemonById(UUID id) {
