@@ -28,6 +28,7 @@
                     <h:column rendered="#{facesContext.externalContext.isUserInRole('admin')}">
                         <h:commandButton styleClass="btn" value="Delete"
                                          action="#{speciesList.deleteAction(pokemon)}">
+                            <f:ajax execute="@this" render=":speciesForm:pokemonSpeciesTable"/>
                         </h:commandButton>
                     </h:column>
                 </h:dataTable>

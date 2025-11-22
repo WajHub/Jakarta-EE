@@ -59,7 +59,7 @@ public class SpeciesView  implements Serializable {
 
     public void deleteAction(PokemonResponse pokemon) {
         pokemonService.delete(pokemon.getId());
-        this.pokemonSpecies = service.findById(id);
+        this.pokemons = pokemonService.getPokemonsBySpeciesId(this.id);
     }
 
 }
