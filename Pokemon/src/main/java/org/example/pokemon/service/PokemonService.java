@@ -58,6 +58,12 @@ public class PokemonService {
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + pokemonRequest.getSpeciesId() + " not found"));
         var pokemonToCreate = factory.pokemonCreateRequestToPokemon().apply(pokemonRequest);
         pokemonToCreate.setSpecies(species);
+
+        User user = userH2Repository.findByUsername(securityContext.getCallerPrincipal().getName())
+                .orElseThrow(IllegalStateException::new);
+
+        pokemonToCreate.setOwner(user);
+        pokemonToCreate.setSpecies(species);
         pokemonH2Repository.create(pokemonToCreate);
     }
 

@@ -60,7 +60,7 @@ public class InitData {
                 .build();
         User user2 = User.builder()
                 .id(UUID.fromString("5b030d40-b539-4150-a88e-094a24f08dc8"))
-                .username("use2r")
+                .username("user2")
                 .password("user2")
                 .email("user2@gmail.com")
                 .roles(List.of(UserRole.ROLE_USER))
