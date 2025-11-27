@@ -32,29 +32,31 @@
             <section>
                 <h3>Pokemons</h3>
                 <h:form id="speciesForm">
+                    <h:dataTable id="pokemonsTable" value="#{speciesView.pokemons}" var="pokemon" styleClass="spaced-table">
+                        <h:column>
+                            <f:facet name="header">Name</f:facet>
+                            <h:outputText value="#{pokemon.name}"/>
+                        </h:column>
 
-                        <h:dataTable value="#{speciesView.pokemonSpecies.pokemons}" var="pokemon" styleClass="spaced-table">
-                            <h:column>
-                                <f:facet name="header">Name</f:facet>
-                                <h:outputText value="#{pokemon.name}"/>
-                            </h:column>
+                        <h:column>
+                            <f:facet name="header">Level</f:facet>
+                            <h:outputText value="#{pokemon.level}"/>
+                        </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Level</f:facet>
-                                <h:outputText value="#{pokemon.level}"/>
-                            </h:column>
+                        <h:column>
+                            <f:facet name="header">Actions</f:facet>
+                            <h:link class="m-1"  outcome="/pokemon/pokemon_view.xhtml" value="View">
+                                <f:param name="id" value="#{pokemon.id}"/>
+                            </h:link>
+                            <h:link class="m-1" outcome="/pokemon/pokemon_edit.xhtml" value="Edit">
+                                <f:param name="id" value="#{pokemon.id}"/>
+                            </h:link>
 
-                            <h:column>
-                                <f:facet name="header">Actions</f:facet>
-                                <h:link class="m-1"  outcome="/pokemon/pokemon_view.xhtml" value="View">
-                                    <f:param name="id" value="#{pokemon.id}"/>
-                                </h:link>
-                                <h:link class="m-1" outcome="/pokemon/pokemon_edit.xhtml" value="Edit">
-                                    <f:param name="id" value="#{pokemon.id}"/>
-                                </h:link>
-                                <h:commandButton class="m-1"  value="Delete" action="#{speciesView.deleteAction(pokemon)}"/>
-                            </h:column>
-                        </h:dataTable>
+                            <h:commandButton class="m-1" value="Delete" action="#{speciesView.deleteAction(pokemon)}">
+                                <f:ajax execute="@this" render=":speciesForm:pokemonsTable"/>
+                            </h:commandButton>
+                        </h:column>
+                    </h:dataTable>
 
                     <h:button outcome="/pokemon/pokemon_create.xhtml" value="Create new Pokémon"/>
                 </h:form>

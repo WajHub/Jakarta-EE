@@ -16,6 +16,7 @@ import org.example.pokemon.dto.request.SpeciesEditRequest;
 import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.entity.PokemonSpecies;
 import org.example.pokemon.entity.UserRole;
+import org.example.pokemon.interceptor.LogAction;
 import org.example.pokemon.repository.impl.SpeciesH2Repository;
 import org.example.pokemon.repository.impl.SpeciesRepository;
 
@@ -40,13 +41,14 @@ public class SpeciesService {
     }
 
 
+    @LogAction
     @RolesAllowed({UserRole.ROLE_ADMIN})
     public void create(PokemonSpecies pSpecies) {
         if(speciesH2Repository.find(pSpecies.getId()).isEmpty())
             speciesH2Repository.create(pSpecies);
     }
 
-
+    @LogAction
     public void update(UUID id, SpeciesEditRequest pSpecies) {
         speciesH2Repository.find(id).ifPresent(entity -> {
             var updatedSpecies = factory.updatePokemonSpecies().apply(entity, pSpecies);
@@ -55,6 +57,7 @@ public class SpeciesService {
 
     }
 
+    @LogAction
     public List<SpeciesResponse> findAll() {
         return speciesH2Repository.findAll()
                 .stream()
@@ -62,6 +65,7 @@ public class SpeciesService {
                 .collect(Collectors.toList());
     }
 
+    @LogAction
     public SpeciesResponse findById(UUID id) {
         Optional<PokemonSpecies> species = speciesH2Repository.find(id);
         return species
@@ -69,7 +73,7 @@ public class SpeciesService {
                 .orElseThrow(() -> new NotFoundException("Pokemon species not found"));
     }
 
-
+    @LogAction
     public void delete(UUID id) {
         speciesH2Repository.delete(
                 speciesH2Repository

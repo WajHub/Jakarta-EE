@@ -16,6 +16,7 @@ import org.example.pokemon.service.SpeciesService;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @ViewScoped
@@ -31,6 +32,10 @@ public class SpeciesView  implements Serializable {
 
     @Setter
     @Getter
+    private List<PokemonResponse> pokemons;
+
+    @Setter
+    @Getter
     private UUID id;
 
     @Inject
@@ -42,6 +47,8 @@ public class SpeciesView  implements Serializable {
     public void init() throws IOException {
         try {
             this.pokemonSpecies = service.findById(id);
+            this.pokemons = pokemonService.getPokemonsBySpeciesId(pokemonSpecies.getId());
+            System.out.println(pokemons);
         } catch (NotFoundException e) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
@@ -52,7 +59,7 @@ public class SpeciesView  implements Serializable {
 
     public void deleteAction(PokemonResponse pokemon) {
         pokemonService.delete(pokemon.getId());
-        this.pokemonSpecies = service.findById(id);
+        this.pokemons = pokemonService.getPokemonsBySpeciesId(this.id);
     }
 
 }

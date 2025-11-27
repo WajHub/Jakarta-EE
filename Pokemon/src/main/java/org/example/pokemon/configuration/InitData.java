@@ -43,14 +43,29 @@ public class InitData {
     @SneakyThrows
     @PostConstruct
     private void init() {
+        User admin = User.builder()
+                .id(UUID.fromString("aaf8b3ad-f935-4e77-a01e-718f338a37cb"))
+                .username("admin2")
+                .password("admin2")
+                .email("admin@gmail.com")
+                .roles(List.of(UserRole.ROLE_ADMIN))
+                .build();
+
         User user = User.builder()
                 .id(UUID.fromString("5b030d40-b529-4150-a88e-094a24f08dc8"))
                 .username("user")
-                .password("password_user")
+                .password("user")
                 .email("user@gmail.com")
                 .roles(List.of(UserRole.ROLE_USER))
                 .build();
-        List<User>initUsers = List.of(user);
+        User user2 = User.builder()
+                .id(UUID.fromString("5b030d40-b539-4150-a88e-094a24f08dc8"))
+                .username("user2")
+                .password("user2")
+                .email("user2@gmail.com")
+                .roles(List.of(UserRole.ROLE_USER))
+                .build();
+        List<User>initUsers = List.of(user,admin,user2);
         initUsers.forEach(u -> {
             if(userService.getUserById(u.getId()).isEmpty()) {
                 userService.create(u);
@@ -126,7 +141,7 @@ public class InitData {
                 .captureDate(LocalDate.now())
                 .build();
 
-        Pokemon pokemon_admina = Pokemon.builder()
+        Pokemon pokemon_user = Pokemon.builder()
                 .id(UUID.fromString("3a47a2ca-a927-4a78-be0c-b40ad0987658"))
                 .species(pikachuSpecies)
                 .name("Nazwa")
@@ -138,6 +153,20 @@ public class InitData {
                 .captureDate(LocalDate.now())
                 .build();
 
+        Pokemon pokemon_admina = Pokemon.builder()
+                .id(UUID.fromString("3a47a2ca-a697-4a78-be0c-b40ad0987658"))
+                .species(pikachuSpecies)
+                .name("Pokemon ADMINA")
+                .level(11)
+                .health(200)
+                .attack(12)
+                .defense(14)
+                .owner(admin)
+                .captureDate(LocalDate.now())
+                .build();
+
+
+
         pokemonSpeciesService.create(pikachuSpecies);
         pokemonSpeciesService.create(raichuSpecies);
         pokemonSpeciesService.create(charmanderSpecies);
@@ -145,6 +174,7 @@ public class InitData {
         pokemonSpeciesService.create(charizardSpecies);
 
         pokemonService.create(pokemon_huberta);
+        pokemonService.create(pokemon_user);
         pokemonService.create(pokemon_admina);
     }
 }
