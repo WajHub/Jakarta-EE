@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.request.PokemonCreateRequest;
 import org.example.pokemon.dto.request.PokemonEditRequest;
+import org.example.pokemon.dto.request.PokemonFilter;
 import org.example.pokemon.dto.response.PokemonResponse;
 import org.example.pokemon.entity.Pokemon;
+import org.example.pokemon.entity.Pokemon_;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.interceptor.LogAction;
@@ -119,6 +121,18 @@ public class PokemonService {
         }
         else if (securityContext.isCallerInRole(UserRole.ROLE_USER)) {
             return pokemonH2Repository.findAllBySpeciesIdAndUsername(speciesId, securityContext.getCallerPrincipal().getName())
+                    .stream().map(factory.pokemontoPokemonResponse())
+                    .collect(Collectors.toList());
+        }
+        else {
+            throw new EJBAccessException("Caller not authorized.");
+        }
+    }
+
+    @LogAction
+    public List<PokemonResponse> getPokemonsfiltered(UUID speciesId, PokemonFilter pokemonFilter) {
+        if (securityContext.isCallerInRole(UserRole.ROLE_ADMIN)) {
+            return pokemonH2Repository.findAllFiltered(speciesId, pokemonFilter)
                     .stream().map(factory.pokemontoPokemonResponse())
                     .collect(Collectors.toList());
         }

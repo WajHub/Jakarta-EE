@@ -2,12 +2,22 @@
 
 user: dXNlcjpwYXNzd29yZF91c2Vy
 newuser: bmV3dXNlcjpwYXNzd29yZDEyMw==
-admin: YWRtaW46cGFzc3dvcmRfYWRtaW4=
+admin: YWRtaW4yOmFkbWluMg==
+
+
+
+### GET request to find pokemons by species
+// @no-cookie-jar
+GET http://localhost:9080/pokemon/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/filtered?level=2
+Authorization: Basic YWRtaW4yOmFkbWluMg==
+###
+
+
 
 ### GET request to find all species
 // @no-cookie-jar
 GET http://localhost:9080/pokemon/api/species/
-Authorization: Basic dXNlcjpwYXNzd29yZF91c2Vy
+Authorization: Basic YWRtaW4yOmFkbWluMg==
 
 ###
 
@@ -54,7 +64,7 @@ Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
 ### GET request to find pokemons by species
 // @no-cookie-jar
 GET http://localhost:9080/pokemon/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/
-Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
+Authorization: Basic YWRtaW4yOmFkbWluMg==
 ###
 
 ### GET request to find pokemons by species

@@ -7,7 +7,9 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.pokemon.dto.request.PokemonCreateRequest;
 import org.example.pokemon.dto.request.PokemonEditRequest;
+import org.example.pokemon.dto.request.PokemonFilter;
 import org.example.pokemon.dto.response.PokemonResponse;
+import org.example.pokemon.entity.Pokemon_;
 import org.example.pokemon.entity.UserRole;
 import org.example.pokemon.service.PokemonService;
 
@@ -26,6 +28,13 @@ public class PokemonController {
     @Produces(MediaType.APPLICATION_JSON)
     public List<PokemonResponse> getPokemons(@PathParam("speciesId") UUID speciesId) {
         return pokemonService.getPokemonsBySpeciesId(speciesId);
+    }
+
+    @GET
+    @Path("/filtered")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PokemonResponse> getPokemonsFiltered(@PathParam("speciesId") UUID speciesId, @BeanParam PokemonFilter pokemonFilter) {
+        return pokemonService.getPokemonsfiltered(speciesId, pokemonFilter);
     }
 
 

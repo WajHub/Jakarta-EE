@@ -14,6 +14,7 @@ public class PokemonToPokemonResponse  implements Function<Pokemon, PokemonRespo
         return PokemonResponse.builder()
                 .id(pokemon.getId())
                 .name(pokemon.getName())
+                .level(pokemon.getLevel())
                 .health(pokemon.getHealth())
                 .attack(pokemon.getAttack())
                 .defense(pokemon.getDefense())

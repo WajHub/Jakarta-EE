@@ -4,6 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.entity.User;
 import org.example.pokemon.repository.api.IUserRepository;
@@ -22,10 +25,11 @@ public class UserH2Repository  implements IUserRepository {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        return em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
-                .setParameter("username", username)
-                .getResultStream()
-                .findFirst();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> root = cq.from(User.class);
+        cq.select(root).where(cb.equal(root.get("username"), username));
+        return em.createQuery(cq).getResultStream().findFirst();
     }
 
     @Override
@@ -35,7 +39,11 @@ public class UserH2Repository  implements IUserRepository {
 
     @Override
     public List<User> findAll() {
-        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> root = cq.from(User.class);
+        cq.select(root);
+        return em.createQuery(cq).getResultList();
     }
 
     @Override

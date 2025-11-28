@@ -4,6 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.entity.PokemonSpecies;
 import org.example.pokemon.repository.api.ISpeciesRepository;
@@ -26,7 +29,11 @@ public class SpeciesH2Repository implements ISpeciesRepository  {
 
     @Override
     public List<PokemonSpecies> findAll() {
-        return em.createQuery("SELECT s FROM PokemonSpecies s", PokemonSpecies.class).getResultList();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<PokemonSpecies> query = builder.createQuery(PokemonSpecies.class);
+        Root<PokemonSpecies> root = query.from(PokemonSpecies.class);
+        query.select(root);
+        return em.createQuery(query).getResultList();
     }
 
     @Override

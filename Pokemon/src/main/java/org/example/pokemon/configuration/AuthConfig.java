@@ -8,13 +8,13 @@ import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition
 import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 
 @ApplicationScoped
-//@BasicAuthenticationMechanismDefinition(realmName = "Pokemon")
-@FormAuthenticationMechanismDefinition(
-        loginToContinue = @LoginToContinue(
-                loginPage = "/user/login.xhtml",
-                errorPage = "/user/error.xhtml"
-        )
-)
+@BasicAuthenticationMechanismDefinition(realmName = "Pokemon")
+//@FormAuthenticationMechanismDefinition(
+//        loginToContinue = @LoginToContinue(
+//                loginPage = "/user/login.xhtml",
+//                errorPage = "/user/error.xhtml"
+//        )
+//)
 @DatabaseIdentityStoreDefinition(
         dataSourceLookup = "jdbc/pokemons",
         callerQuery = "select password from users where username = ?",
