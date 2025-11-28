@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +24,9 @@ public class Pokemon implements Serializable {
     private UUID id;
     private static final long serialVersionUID = 1L;
 
+    @Embedded
+    CommonData commonData;
+
     private String name;
     private int level;
 
@@ -39,4 +43,22 @@ public class Pokemon implements Serializable {
     @ManyToOne
     @JoinColumn(name = "owner_username")
     private User owner;
+
+
+    @PrePersist
+    public void onCreate() {
+        if(commonData == null) {
+            commonData = new CommonData();
+        }
+        commonData.setCreationDateTime(LocalDateTime.now());
+        commonData.setLastModified(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        if (commonData != null) {
+            commonData.setLastModified(LocalDateTime.now());
+        }
+    }
+
 }

@@ -20,6 +20,9 @@ public class PokemonToPokemonResponse  implements Function<Pokemon, PokemonRespo
                 .speciesName(pokemon.getSpecies().getName())
                 .captureDate(pokemon.getCaptureDate().toString())
                 .ownerUsername(pokemon.getOwner() != null ? pokemon.getOwner().getUsername() : "N/A")
+                .version(pokemon.getCommonData().getVersion())
+                .createdDateTime(pokemon.getCommonData().getCreationDateTime())
+                .lastModified(pokemon.getCommonData().getLastModified())
                 .build();
     }
 }

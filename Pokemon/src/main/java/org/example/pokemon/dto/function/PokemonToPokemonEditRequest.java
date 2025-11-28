@@ -19,6 +19,8 @@ public class PokemonToPokemonEditRequest implements Function<Pokemon, PokemonEdi
                 .level(pokemon.getLevel())
                 .captureDate(pokemon.getCaptureDate())
                 .speciesId(pokemon.getSpecies().getId())
+                .version(pokemon.getCommonData().getVersion())
+                .creationDateTime(pokemon.getCommonData().getCreationDateTime())
                 .build();
     }
 }

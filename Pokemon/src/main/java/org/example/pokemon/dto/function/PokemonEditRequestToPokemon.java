@@ -1,6 +1,7 @@
 package org.example.pokemon.dto.function;
 
 import org.example.pokemon.dto.request.PokemonEditRequest;
+import org.example.pokemon.entity.CommonData;
 import org.example.pokemon.entity.Pokemon;
 
 import java.time.LocalDate;
@@ -17,6 +18,12 @@ public class PokemonEditRequestToPokemon implements Function<PokemonEditRequest,
                 .defense(pokemonEditRequest.getDefense())
                 .level(pokemonEditRequest.getLevel())
                 .captureDate(pokemonEditRequest.getCaptureDate() == null ? LocalDate.now() : pokemonEditRequest.getCaptureDate())
+                .commonData(
+                        CommonData.builder()
+                        .version(pokemonEditRequest.getVersion())
+                        .creationDateTime(pokemonEditRequest.getCreationDateTime())
+                        .build()
+                )
                 .build();
     }
 }

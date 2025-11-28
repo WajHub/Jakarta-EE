@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.example.pokemon.entity.PokemonSpecies;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -25,4 +26,7 @@ public class PokemonResponse {
     private final String captureDate;
     private final String speciesName;
     private final String ownerUsername;
+    private final LocalDateTime createdDateTime;
+    private final LocalDateTime lastModified;
+    private final Long version;
 }

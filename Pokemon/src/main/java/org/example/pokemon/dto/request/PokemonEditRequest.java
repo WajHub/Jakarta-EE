@@ -4,6 +4,7 @@ package org.example.pokemon.dto.request;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -22,4 +23,6 @@ public class PokemonEditRequest {
     private int level;
     private LocalDate captureDate;
     private UUID speciesId;
+    private Long version;
+    private LocalDateTime creationDateTime;
 }
