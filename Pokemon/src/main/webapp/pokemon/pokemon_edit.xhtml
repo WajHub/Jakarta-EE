@@ -12,6 +12,8 @@
 
     <ui:define name="content">
         <div class="container mt-5 w-25">
+            <h:messages/>
+
             <h2 class="mb-4">Create Pokémon</h2>
 
             <h:form enctype="multipart/form-data">
@@ -71,9 +73,6 @@
                     <h:commandButton value="Reset"
                                      styleClass="btn btn-secondary"
                                      type="reset"/>
-                    <h:commandButton value="Cancel"
-                                     styleClass="btn btn-secondary"
-                                     action="#{pokemonUpdateView.cancelAction()}"/>
                 </div>
             </h:form>
         </div>

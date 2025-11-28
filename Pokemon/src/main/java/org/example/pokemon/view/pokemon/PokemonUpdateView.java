@@ -1,8 +1,12 @@
 package org.example.pokemon.view.pokemon;
 
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.OptimisticLockException;
+import jakarta.transaction.TransactionalException;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
@@ -22,6 +26,8 @@ import java.util.UUID;
 public class PokemonUpdateView implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private final FacesContext facesContext;
+
     private PokemonService pokemonService;
     private SpeciesService speciesService;
     private DtoFunctionFactory factory;
@@ -39,10 +45,11 @@ public class PokemonUpdateView implements Serializable {
     private UUID id;
 
     @Inject
-    public PokemonUpdateView(PokemonService pokemonService, SpeciesService speciesService, DtoFunctionFactory factory) {
+    public PokemonUpdateView(PokemonService pokemonService, SpeciesService speciesService, DtoFunctionFactory factory, FacesContext facesContext) {
         this.pokemonService = pokemonService;
         this.speciesService = speciesService;
         this.factory = factory;
+        this.facesContext = facesContext;
     }
 
     public void init() {
@@ -55,13 +62,22 @@ public class PokemonUpdateView implements Serializable {
         }
     }
 
-    public String cancelAction() {
-        return "/species/species_list.xhtml?faces-redirect=true";
-    }
-
 
     public String saveAction() {
-        pokemonService.update(pokemonEditRequest);
-        return "/species/species_list.xhtml?faces-redirect=true";
+        try {
+            pokemonService.update(pokemonEditRequest);
+            return "/species/species_list.xhtml?faces-redirect=true";
+        } catch (Exception ex) {
+            Throwable cause = ex;
+            while (cause != null) {
+                if (cause instanceof OptimisticLockException) {
+                    init();
+                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Version collision.", null));
+                    return null;
+                }
+                cause = cause.getCause();
+            }
+            throw ex;
+        }
     }
 }

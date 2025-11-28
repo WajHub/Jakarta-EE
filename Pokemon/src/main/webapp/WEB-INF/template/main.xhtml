@@ -45,10 +45,6 @@
                                     outcome="/species/species_list.xhtml">#{msg['species']}</h:link>
                         </li>
                         <li class="nav-item">
-                            <h:link styleClass="nav-link"
-                                    outcome="/pokemon/pokemon_list.xhtml">#{msg['pokemons']}</h:link>
-                        </li>
-                        <li class="nav-item">
                             <h:form styleClass="container d-flex  align-items-center justify-content-end"
                                     rendered="#{facesContext.externalContext.userPrincipal != null}">
                                 #{msg['logged']}: <h:outputText value="#{facesContext.externalContext.userPrincipal.name}"/>
