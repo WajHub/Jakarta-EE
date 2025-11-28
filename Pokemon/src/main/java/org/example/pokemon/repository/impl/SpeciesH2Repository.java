@@ -27,6 +27,19 @@ public class SpeciesH2Repository implements ISpeciesRepository  {
         return Optional.ofNullable(em.find(PokemonSpecies.class, id));
     }
 
+    public Optional<PokemonSpecies> findByEvolutionTarget(UUID evolutionTargetId) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<PokemonSpecies> query = builder.createQuery(PokemonSpecies.class);
+        Root<PokemonSpecies> root = query.from(PokemonSpecies.class);
+        query.select(root).where(builder.equal(root.get("evolutionTarget").get("id"), evolutionTargetId));
+        List<PokemonSpecies> results = em.createQuery(query).getResultList();
+        if (results.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(results.get(0));
+        }
+    }
+
     @Override
     public List<PokemonSpecies> findAll() {
         CriteriaBuilder builder = em.getCriteriaBuilder();

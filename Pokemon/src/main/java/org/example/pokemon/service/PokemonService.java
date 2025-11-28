@@ -5,6 +5,7 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.SecurityContext;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.NotFoundException;
 import lombok.NoArgsConstructor;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
@@ -70,7 +71,7 @@ public class PokemonService {
     }
 
     @LogAction
-    public void create(UUID speciesId, PokemonCreateRequest pokemonRequest) {
+    public void create(UUID speciesId, @Valid PokemonCreateRequest pokemonRequest) {
         var species = speciesH2Repository.find(speciesId)
                 .orElseThrow(() -> new IllegalArgumentException("Pokemon species with id " + speciesId + " not found"));
         var pokemonToCreate = factory.pokemonCreateRequestToPokemon().apply(pokemonRequest);

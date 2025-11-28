@@ -63,7 +63,7 @@ Authorization: Basic YWRtaW46cGFzc3dvcmRfYWRtaW4=
 
 ### GET request to find pokemons by species
 // @no-cookie-jar
-GET http://localhost:9080/pokemon/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/
+GET http://localhost:9080/pokemon/api/species/a70c86ce-bf99-4335-b2af-3d6535958973/pokemons/
 Authorization: Basic YWRtaW4yOmFkbWluMg==
 ###
 
@@ -75,16 +75,16 @@ Authorization: Basic bmV3dXNlcjpwYXNzd29yZDEyMw==
 
 ### POST request to create pokemon
 // @no-cookie-jar
-POST http://localhost:9080/pokemon/api/species/965830df-f75b-40dd-8200-1cb0a1be4d38/pokemons/
+POST http://localhost:9080/pokemon/api/species/a70c86ce-bf99-4335-b2af-3d6535958973/pokemons/
 Content-Type: application/json
-Authorization: Basic bmV3dXNlcjpwYXNzd29yZDEyMw==
+Authorization: Basic YWRtaW4yOmFkbWluMg==
 
 {
   "name": "New Pokemon",
   "health": 35,
   "attack": 55,
   "defense": 40,
-  "level": 5
+  "level": 10
 }
 ###
 

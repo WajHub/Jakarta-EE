@@ -8,6 +8,8 @@
     <f:metadata>
         <f:viewAction action="#{pokemonCreateView.init()}"/>
     </f:metadata>
+    <f:validateWholeBean value="#{pokemonCreateView.pokemonCreateRequest}"
+                         validationGroups="org.example.pokemon.validation.PokemonRequestCreateGroup"/>
 
     <ui:define name="content">
         <div class="container mt-5 w-25">
@@ -20,6 +22,7 @@
                     <h:inputText id="name"
                                  value="#{pokemonCreateView.pokemonCreateRequest.name}"
                                  styleClass="form-control"/>
+                    <h:message for="name" styleClass="text-danger"/>
                 </div>
 
                 <div class="mb-3">
@@ -27,6 +30,7 @@
                     <h:inputText id="health"
                                  value="#{pokemonCreateView.pokemonCreateRequest.health}"
                                  styleClass="form-control"/>
+                    <h:message for="health" styleClass="text-danger"/>
                 </div>
 
                 <div class="mb-3">
@@ -34,6 +38,7 @@
                     <h:inputText id="attack"
                                  value="#{pokemonCreateView.pokemonCreateRequest.attack}"
                                  styleClass="form-control"/>
+                    <h:message for="attack" styleClass="text-danger"/>
                 </div>
 
                 <div class="mb-3">
@@ -41,6 +46,7 @@
                     <h:inputText id="defense"
                                  value="#{pokemonCreateView.pokemonCreateRequest.defense}"
                                  styleClass="form-control"/>
+                    <h:message for="defense" styleClass="text-danger"/>
                 </div>
 
                 <div class="mb-3">
@@ -48,6 +54,7 @@
                     <h:inputText id="level"
                                  value="#{pokemonCreateView.pokemonCreateRequest.level}"
                                  styleClass="form-control"/>
+                    <h:message for="level" styleClass="text-danger"/>
                 </div>
 
                 <div class="mb-3">
@@ -66,7 +73,9 @@
                 <div class="d-flex justify-content-between">
                     <h:commandButton value="Create"
                                      styleClass="btn btn-primary"
-                                     action="#{pokemonCreateView.saveAction()}"/>
+                                     action="#{pokemonCreateView.saveAction()}">
+
+                    </h:commandButton>
                     <h:commandButton value="Reset"
                                      styleClass="btn btn-secondary"
                                      type="reset"/>

@@ -3,6 +3,7 @@ package org.example.pokemon.controller;
 import jakarta.ejb.EJB;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.annotation.security.PermitAll;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.pokemon.dto.request.PokemonCreateRequest;
@@ -49,7 +50,9 @@ public class PokemonController {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     public void createPokemon(@PathParam("speciesId") UUID speciesId, PokemonCreateRequest pokemonRequest) {
+        System.out.println("Creating pokemon: " + pokemonRequest);
         pokemonRequest.setId(UUID.randomUUID());
+        pokemonRequest.setSpeciesId(speciesId);
         pokemonService.create(speciesId, pokemonRequest);
     }
 
