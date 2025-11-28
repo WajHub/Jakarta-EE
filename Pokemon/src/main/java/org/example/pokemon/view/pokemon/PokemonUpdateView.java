@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.example.pokemon.dto.function.DtoFunctionFactory;
 import org.example.pokemon.dto.request.PokemonCreateRequest;
 import org.example.pokemon.dto.request.PokemonEditRequest;
+import org.example.pokemon.dto.response.PokemonResponse;
 import org.example.pokemon.dto.response.SpeciesResponse;
 import org.example.pokemon.entity.Pokemon;
 import org.example.pokemon.service.PokemonService;
@@ -35,6 +36,10 @@ public class PokemonUpdateView implements Serializable {
     @Setter
     @Getter
     private PokemonEditRequest pokemonEditRequest;
+
+    @Getter
+    @Setter
+    private PokemonResponse collisionOriginalPokemon;
 
     @Getter
     @Setter
@@ -72,6 +77,10 @@ public class PokemonUpdateView implements Serializable {
             while (cause != null) {
                 if (cause instanceof OptimisticLockException) {
                     init();
+                    collisionOriginalPokemon = factory.pokemontoPokemonResponse().apply(
+                            pokemonService.getPokemonById(pokemonEditRequest.getId())
+                    );
+                    pokemonEditRequest.setVersion(collisionOriginalPokemon.getVersion());
                     facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Version collision.", null));
                     return null;
                 }
